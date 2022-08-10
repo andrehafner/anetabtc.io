@@ -1,4 +1,4 @@
 export enum WalletName {
-  nami = 'nami',
-  eternl = 'eternl',
+  nami = "nami",
+  eternl = "eternl",
 }
