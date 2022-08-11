@@ -15,5 +15,5 @@ export default function Home() {
     })();
   }, []);
 
-  return <Layout ChildComponent={Stake}></Layout>;
+  return <Stake></Stake>;
 }

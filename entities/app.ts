@@ -11,7 +11,7 @@ export enum Theme {
   light = "light",
 }
 
-export enum ReducersName {
-  toggleTheme = "toggleTheme",
-  setWallet = "setWallet",
+export enum LocalStorageKey {
+  theme = "theme",
+  walletName = "wallet-name",
 }

@@ -1,3 +1,11 @@
-*
+# Ignore everything:
+/*
+
+# Except:
 !/components
+!/entities
+!/layouts
 !/pages
+!/reducers
+!/services
+!/styles

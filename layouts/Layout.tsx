@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "@services/store";
 import { Theme } from "@entities/app";
 
-const Layout = ({ ChildComponent }: { ChildComponent: React.FC }) => {
+const Layout = ({ children }: { children: JSX.Element }) => {
   const theme: Theme = useSelector((state: RootState) => state.app.theme);
 
   return (
@@ -15,7 +15,7 @@ const Layout = ({ ChildComponent }: { ChildComponent: React.FC }) => {
         <title>anetBTC Staking Platform</title>
       </Head>
       <Header></Header>
-      <ChildComponent></ChildComponent>
+      {children}
     </div>
   );
 };
