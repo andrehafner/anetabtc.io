@@ -13,7 +13,7 @@ const InitEffect = ({ children }: { children: JSX.Element }) => {
     try {
       const wallet = await getWallet(walletName);
       const walletApi = await wallet.enable();
-      dispatch(setWallet({ wallet, walletApi }));
+      dispatch(setWallet({ walletName, wallet, walletApi }));
     } catch (e) {}
   };
 

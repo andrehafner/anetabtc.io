@@ -1,4 +1,4 @@
-import { Cip30Wallet, WalletApi } from "@cardano-sdk/cip30";
+import { Cip30Wallet, WalletApi, WalletName } from "@cardano-sdk/cip30";
 import { LocalStorageKey, Theme } from "@entities/app";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IState } from "@entities/app";
@@ -7,6 +7,7 @@ const initialState: IState = {
   theme: Theme.dark,
   wallet: null,
   walletApi: null,
+  modalChild: null,
 };
 
 const name = "app";
@@ -27,12 +28,21 @@ const reducers = {
   },
   setWallet: (
     state: any,
-    action: PayloadAction<{ wallet: Cip30Wallet; walletApi: WalletApi }>
+    action: PayloadAction<{
+      walletName: WalletName;
+      wallet: Cip30Wallet;
+      walletApi: WalletApi;
+    }>
   ) => {
-    state.wallet = action.payload.wallet;
-    state.walletApi = action.payload.walletApi;
-    // localStorage.setItem(LocalStorageKey.walletName)
+    const { wallet, walletApi, walletName } = action.payload;
+    state.wallet = wallet;
+    state.walletApi = walletApi;
+    localStorage.setItem(LocalStorageKey.walletName, walletName);
   },
+  setModalChild: (state: any,
+    action: PayloadAction<JSX.Element>) => {
+      state.modalChild = action.payload
+  }
 };
 
 const appSlice = createSlice({
@@ -41,5 +51,5 @@ const appSlice = createSlice({
   reducers,
 });
 
-export const { toggleTheme, setTheme, setWallet } = appSlice.actions;
+export const { toggleTheme, setTheme, setWallet, setModalChild } = appSlice.actions;
 export default appSlice.reducer;

@@ -4,6 +4,7 @@ export interface IState {
   theme: Theme;
   wallet: Cip30Wallet | null;
   walletApi: WalletApi | null;
+  modalChild: JSX.Element | null;
 }
 
 export enum Theme {
