@@ -6,7 +6,14 @@ module.exports = {
     "./layouts/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      minWidth: {
+        '80': '20rem'
+      },
+      borderColor: {
+        'theme': 'var(--button-border-color)'
+      }
+    },
   },
   plugins: [],
 }

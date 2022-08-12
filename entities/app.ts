@@ -4,7 +4,7 @@ export interface IState {
   theme: Theme;
   wallet: Cip30Wallet | null;
   walletApi: WalletApi | null;
-  modalChild: JSX.Element | null;
+  blockchain: Blockchain;
 }
 
 export enum Theme {
@@ -15,4 +15,9 @@ export enum Theme {
 export enum LocalStorageKey {
   theme = "theme",
   walletName = "wallet-name",
+}
+
+export enum Blockchain {
+  cardano = "cardano",
+  ergo = "ergo",
 }
