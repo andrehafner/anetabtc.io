@@ -29,15 +29,19 @@ const reducers = {
   setWallet: (
     state: any,
     action: PayloadAction<{
-      walletName: WalletName;
-      wallet: Cip30Wallet;
-      walletApi: WalletApi;
+      walletName: WalletName | null;
+      wallet: Cip30Wallet | null;
+      walletApi: WalletApi | null;
     }>
   ) => {
     const { wallet, walletApi, walletName } = action.payload;
     state.wallet = wallet;
     state.walletApi = walletApi;
-    localStorage.setItem(LocalStorageKey.walletName, walletName);
+    if (walletName) {
+      localStorage.setItem(LocalStorageKey.walletName, walletName);
+    } else {
+      localStorage.removeItem(LocalStorageKey.walletName);
+    }
   },
 };
 

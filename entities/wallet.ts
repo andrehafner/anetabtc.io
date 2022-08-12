@@ -6,3 +6,9 @@ export enum WalletName {
   gerowallet = "gerowallet",
   anetawallet = "anetawallet",
 }
+
+export enum WalletConnectionStatus {
+  notConnected,
+  connecting,
+  connected,
+}

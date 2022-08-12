@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect } from "react";
 import { LocalStorageKey, Theme } from "@entities/app";
-import { getWallet } from "@services/wallet";
+import { enableWallet } from "@services/wallet";
 import { WalletName } from "@entities/wallet";
 import { setTheme, setWallet } from "@reducers/app";
 import { useDispatch } from "react-redux";
@@ -11,8 +11,7 @@ const InitEffect = ({ children }: { children: JSX.Element }) => {
 
   const initWallet = async (walletName: WalletName) => {
     try {
-      const wallet = await getWallet(walletName);
-      const walletApi = await wallet.enable();
+      const { wallet, walletApi } = await enableWallet(walletName);
       dispatch(setWallet({ walletName, wallet, walletApi }));
     } catch (e) {}
   };
