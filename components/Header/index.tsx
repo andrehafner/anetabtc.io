@@ -6,7 +6,7 @@ import WalletConnector from "./WalletConnector";
 
 const Header: React.FC = () => {
   return (
-    <div className="h-20 p-5 flex flex-row items-center">
+    <div className="h-20 p-6 flex flex-row items-center">
       <div className="h-full gap-2 flex flex-row items-center">
         <img className="h-full" src="/logo-theme-dark.png"></img>
         <TVL />

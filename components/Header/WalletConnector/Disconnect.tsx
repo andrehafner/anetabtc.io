@@ -13,7 +13,7 @@ const Disconnect = ({ closeButton }: { closeButton: Function }) => {
 
   return (
     <div
-      className="absolute cursor-pointer button rounded-lg bg-slate-900 p-2.5 left-0 -bottom-14"
+      className="absolute cursor-pointer button rounded-lg component p-2.5 left-0 -bottom-14"
       onClick={handleOnClick}
       ref={ref}
     >

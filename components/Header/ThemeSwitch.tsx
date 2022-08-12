@@ -11,7 +11,7 @@ const ThemeSwitch = () => {
 
   return (
     <div
-      className="button cursor-pointer bg-slate-900 h-full px-2.5 rounded-lg flex items-center"
+      className="button cursor-pointer component h-full px-2.5 rounded-lg flex items-center"
       onClick={() => dispatch(toggleTheme())}
     >
       <FontAwesomeIcon

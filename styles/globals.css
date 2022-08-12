@@ -19,8 +19,36 @@ body {
 }
 
 .theme-light {
-  --body-bg: white;
+  --body-bg: linear-gradient(
+      180deg,
+      rgba(155, 217, 242, 0) 41.16%,
+      rgba(255, 255, 255, 0.7) 100%
+    ),
+    linear-gradient(
+      237.67deg,
+      rgba(155, 217, 242, 0) 30.62%,
+      rgba(255, 215, 138, 0.33) 100%
+    ),
+    linear-gradient(
+      121.92deg,
+      rgba(155, 217, 242, 0) 31.4%,
+      rgba(255, 215, 138, 0.33) 100%
+    ),
+    linear-gradient(
+      115.18deg,
+      rgba(186, 168, 230, 0.5) -35.29%,
+      rgba(186, 168, 230, 0) 57.9%
+    ),
+    linear-gradient(
+      245.41deg,
+      rgba(186, 168, 230, 0.55) -12.18%,
+      rgba(155, 217, 242, 0) 56.8%
+    ),
+    linear-gradient(0deg, rgba(226, 216, 250, 0.12), rgba(226, 216, 250, 0.12)),
+    #bcd4f2;
   --color: black;
+  --component-bg: rgba(255, 255, 255, 1);
+  --button-bg: rgba(200, 214, 245, 1);
   --button-box-shadow: rgb(0 0 0 / 50%);
   --button-border-color: rgb(0 0 0);
 }
@@ -43,6 +71,8 @@ body {
       rgba(0, 0, 0, 0) 74.69%
     );
   --color: white;
+  --component-bg: rgba(25, 27, 31, 1);
+  --button-bg: rgba(33, 70, 118, 1);
   --button-box-shadow: rgb(255 255 255 / 50%);
   --button-border-color: rgb(255 255 255);
 }
@@ -65,9 +95,14 @@ a {
   transition: 0.25s;
   border: 1px solid transparent;
   white-space: nowrap;
+  background: var(--button-bg);
 }
 
 .button:hover {
   box-shadow: 0px 10px 15px -14px var(--button-box-shadow);
   border: 1px solid var(--button-border-color);
+}
+
+.component {
+  background: var(--component-bg);
 }
