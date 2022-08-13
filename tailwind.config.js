@@ -12,6 +12,9 @@ module.exports = {
       },
       borderColor: {
         'theme': 'var(--clickable-border-color-less)'
+      },
+      colors: {
+        'agreen': '#68D04F'
       }
     },
   },

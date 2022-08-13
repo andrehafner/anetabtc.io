@@ -10,7 +10,7 @@ interface Props {
   setStakingLength: (length: StakingLength) => void;
 }
 
-const StakingLengthButton = ({ stakingLength, setStakingLength }: Props) => {
+const StakingLengthSelect = ({ stakingLength, setStakingLength }: Props) => {
   const [showDropdown, setShowDropdown] = useState(false);
   const ref = useClickOutside(() => setShowDropdown(false));
 
@@ -20,7 +20,7 @@ const StakingLengthButton = ({ stakingLength, setStakingLength }: Props) => {
   };
 
   return (
-    <div className="relative">
+    <div className="relative" ref={ref}>
       <div
         className="clickable button rounded-lg py-1 px-2.5 w-fit flex flex-row items-center gap-2"
         onClick={() => setShowDropdown(!showDropdown)}
@@ -34,8 +34,7 @@ const StakingLengthButton = ({ stakingLength, setStakingLength }: Props) => {
       </div>
       {showDropdown ? (
         <div
-          ref={ref}
-          className="absolute mt-2 w-full flex flex-col gap-1 p-1 rounded-lg component border border-theme"
+          className="absolute mt-2 w-full flex flex-col gap-2 p-2 rounded-lg component border border-theme"
         >
           {Object.values(StakingLength).map((value) => {
             return (
@@ -55,4 +54,4 @@ const StakingLengthButton = ({ stakingLength, setStakingLength }: Props) => {
   );
 };
 
-export default StakingLengthButton;
+export default StakingLengthSelect;

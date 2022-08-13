@@ -13,7 +13,7 @@ const Disconnect = ({ closeButton }: { closeButton: Function }) => {
 
   return (
     <div
-      className="absolute clickable rounded-lg component p-2.5 left-0 -bottom-14"
+      className="absolute clickable rounded-lg component p-2.5 left-0 mt-2"
       onClick={handleOnClick}
       ref={ref}
     >
