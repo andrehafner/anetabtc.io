@@ -16,7 +16,7 @@ const WalletConnector = () => {
   const [showDisconnectButton, setShowDisconnectButton] = useState(false);
   const [walletConnectionStatus, setWalletConnectionStatus] =
     useState<WalletConnectionStatus>(WalletConnectionStatus.notConnected);
-  const wallet = useSelector((state: RootState) => state.app.wallet);
+  const { wallet, walletApi } = useSelector((state: RootState) => state.app);
   const dispatch = useDispatch();
 
   /**
@@ -61,6 +61,7 @@ const WalletConnector = () => {
           <ConnectionStatus
             walletConnectionStatus={walletConnectionStatus}
             wallet={wallet}
+            walletApi={walletApi}
           />
         </div>
         {showDisconnectButton ? (

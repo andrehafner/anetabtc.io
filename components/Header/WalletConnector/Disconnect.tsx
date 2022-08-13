@@ -13,7 +13,7 @@ const Disconnect = ({ closeButton }: { closeButton: Function }) => {
 
   return (
     <div
-      className="absolute clickable rounded-lg component p-2.5 left-0 mt-2"
+      className="absolute clickable rounded-lg component py-1 px-2.5 right-0 mt-2 min-w-fit w-full text-center"
       onClick={handleOnClick}
       ref={ref}
     >
