@@ -9,9 +9,6 @@ module.exports = {
     extend: {
       minWidth: {
         '80': '20rem'
-      },
-      borderColor: {
-        'theme': 'var(--button-border-color)'
       }
     },
   },

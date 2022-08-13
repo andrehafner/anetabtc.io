@@ -7,6 +7,9 @@ const Stake = () => {
           <div>6 months</div>
           <div></div>
           <div>Stake</div>
+          <div>
+            <div className="clickable button">test</div>
+          </div>
         </div>
       </div>
     </div>
