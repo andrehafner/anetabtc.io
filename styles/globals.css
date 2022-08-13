@@ -18,6 +18,13 @@ body {
   height: 100%;
 }
 
+button::-moz-focus-inner,
+input::-moz-focus-inner {
+  border: 0;
+  padding: 0;
+  background: transparent;
+}
+
 .theme-light {
   --body-bg: white;
   --body-bg: linear-gradient(

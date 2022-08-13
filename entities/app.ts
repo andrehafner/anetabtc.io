@@ -26,3 +26,9 @@ export enum StakingLength {
   sixMonth = "6 Months",
   twelveMonth = "12 Months",
 }
+
+export enum StakingState {
+  init,
+  confirm,
+  loading,
+}
