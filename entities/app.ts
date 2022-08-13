@@ -21,3 +21,8 @@ export enum Blockchain {
   cardano = "cardano",
   ergo = "ergo",
 }
+
+export enum StakingLength {
+  sixMonth = "6 Months",
+  twelveMonth = "12 Months",
+}

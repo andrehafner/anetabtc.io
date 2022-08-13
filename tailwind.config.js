@@ -9,6 +9,9 @@ module.exports = {
     extend: {
       minWidth: {
         '80': '20rem'
+      },
+      borderColor: {
+        'theme': 'var(--clickable-border-color-less)'
       }
     },
   },
