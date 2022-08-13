@@ -14,7 +14,8 @@ module.exports = {
         'theme': 'var(--clickable-border-color-less)'
       },
       colors: {
-        'agreen': '#68D04F'
+        'agreen': '#68D04F',
+        'ared': '#ff6c6c'
       }
     },
   },

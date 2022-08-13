@@ -3,6 +3,8 @@ import { useCallback, useState } from "react";
 import ConfirmStaking from "./ConfirmStaking";
 import InitStaking from "./InitStaking";
 import LoadingStaking from "./LoadingStaking";
+import SuccessStaking from "./SuccessStaking";
+import FailureStaking from "./FailureStaking";
 
 const Stake = () => {
   const [stakingLength, setStakingLength] = useState<StakingLength>(
@@ -11,10 +13,18 @@ const Stake = () => {
   const [apr, setApr] = useState<number>(15);
   const [stakingAmount, setStakingAmount] = useState<number>(0);
   const [stakingState, setStakingState] = useState<StakingState>(
-    StakingState.init
+    StakingState.success
   );
 
-  const RenderContentBox = useCallback(() => {
+  const submitStake = () => {
+    setStakingState(StakingState.success);
+    /**
+     * handle tx
+     */
+    // setStakingState(StakingState.init)
+  };
+
+  const RenderContentBox = () => {
     switch (stakingState) {
       case StakingState.loading:
         return (
@@ -33,10 +43,17 @@ const Stake = () => {
             stakingAmount={stakingAmount}
             stakingLength={stakingLength}
             apr={apr}
-            setStakingAmount={setStakingAmount}
-            setStakingLength={setStakingLength}
             setStakingState={setStakingState}
+            submitStake={submitStake}
           ></ConfirmStaking>
+        );
+      case StakingState.success:
+        return (
+          <SuccessStaking setStakingState={setStakingState}></SuccessStaking>
+        );
+      case StakingState.failure:
+        return (
+          <FailureStaking setStakingState={setStakingState}></FailureStaking>
         );
       case StakingState.init:
       default:
@@ -51,7 +68,7 @@ const Stake = () => {
           ></InitStaking>
         );
     }
-  }, [stakingState]);
+  };
 
   return (
     <div className="w-full p-5 flex justify-center">

@@ -10,7 +10,7 @@ const ThemeSwitch = () => {
   const dispatch = useDispatch();
 
   return (
-    <div
+    <button
       className="clickable component h-full px-2.5 rounded-lg flex items-center"
       onClick={() => dispatch(toggleTheme())}
     >
@@ -18,7 +18,7 @@ const ThemeSwitch = () => {
         className="h-4"
         icon={theme === Theme.dark ? faSun : faMoon}
       />
-    </div>
+    </button>
   );
 };
 

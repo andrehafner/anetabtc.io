@@ -18,11 +18,12 @@ body {
   height: 100%;
 }
 
-button::-moz-focus-inner,
-input::-moz-focus-inner {
-  border: 0;
-  padding: 0;
-  background: transparent;
+button:focus-within,
+input:focus-within,
+input:focus-visible,
+input:focus-visible {
+  border-color: transparent;
+  outline: none;
 }
 
 .theme-light {
@@ -57,6 +58,7 @@ input::-moz-focus-inner {
   --color: black;
   --component-bg: rgba(255, 255, 255, 1);
   --button-bg: rgba(200, 214, 245, 1);
+  --button-danger-bg: #ff6c6c;
   --clickable-box-shadow: rgb(0 0 0 / 50%);
   --clickable-border-color: rgb(0, 0, 0);
   --clickable-border-color-less: rgba(0, 0, 0, 0.2);
@@ -83,6 +85,7 @@ input::-moz-focus-inner {
   --color: white;
   --component-bg: rgba(25, 27, 31, 1);
   --button-bg: rgba(33, 70, 118, 1);
+  --button-danger-bg: #7e0e0e;
   --clickable-box-shadow: rgb(255 255 255 / 50%);
   --clickable-border-color: rgb(255 255 255);
   --clickable-border-color-less: rgba(255, 255, 255, 0.2);
@@ -102,6 +105,11 @@ a {
   box-sizing: border-box;
 }
 
+input:focus-visible,
+input:focus-within {
+  outline: var(--clickable-border-color) 1px solid;
+}
+
 .clickable {
   transition: 0.25s;
   border: 1px solid transparent;
@@ -118,6 +126,23 @@ a {
   background: var(--button-bg);
 }
 
+.button-danger {
+  background: var(--button-danger-bg);
+}
+
 .component {
   background: var(--component-bg);
+}
+
+@keyframes spin {
+  0% {
+    transform: rotateZ(0deg);
+  }
+  100% {
+    transform: rotateZ(360deg);
+  }
+}
+
+.spinner {
+  animation: spin 1s linear infinite;
 }

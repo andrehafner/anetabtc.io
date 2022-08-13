@@ -31,4 +31,6 @@ export enum StakingState {
   init,
   confirm,
   loading,
+  success,
+  failure,
 }

@@ -1,4 +1,5 @@
 import { StakingLength, StakingState } from "@entities/app";
+import { useRef } from "react";
 import StakingInput from "./StakingInput";
 import StakingLengthSelect from "./StakingLengthSelect";
 
@@ -15,10 +16,19 @@ const InitStaking = ({
   stakingLength,
   setStakingLength,
   apr,
-  stakingAmount,
   setStakingAmount,
   setStakingState,
 }: Props) => {
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  const handleStake = () => {
+    if (inputRef.current == null) return;
+    const stakingAmount = Number(inputRef.current.value);
+    if (isNaN(stakingAmount)) return;
+    setStakingAmount(stakingAmount);
+    setStakingState(StakingState.confirm);
+  };
+
   return (
     <div className="component p-5 w-full rounded-2xl mt-5 flex flex-col gap-4">
       <div className="w-full flex flex-row items-center">
@@ -28,14 +38,10 @@ const InitStaking = ({
         ></StakingLengthSelect>
         <div className="ml-auto text-agreen">APR {apr}%</div>
       </div>
-      <StakingInput
-        stakingAmount={stakingAmount}
-        setStakingAmount={setStakingAmount}
-        apr={apr}
-      ></StakingInput>
+      <StakingInput ref={inputRef} apr={apr}></StakingInput>
       <button
         className="clickable button rounded-lg py-1 px-2.5 text-center"
-        onClick={() => setStakingState(StakingState.confirm)}
+        onClick={handleStake}
       >
         Stake
       </button>
