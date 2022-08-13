@@ -13,7 +13,7 @@ const Stake = () => {
   const [apr, setApr] = useState<number>(15);
   const [stakingAmount, setStakingAmount] = useState<number>(0);
   const [stakingState, setStakingState] = useState<StakingState>(
-    StakingState.success
+    StakingState.init
   );
 
   const submitStake = () => {
