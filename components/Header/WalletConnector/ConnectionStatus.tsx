@@ -1,5 +1,4 @@
 import { Cip30Wallet, WalletApi } from "@cardano-sdk/cip30";
-import { Address } from "@emurgo/cardano-serialization-lib-asmjs";
 import { WalletConnectionStatus } from "@entities/wallet";
 import useWallet from "@hooks/useWallet";
 import { useEffect, useState } from "react";

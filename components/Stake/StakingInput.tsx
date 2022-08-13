@@ -18,7 +18,7 @@ const StakingInput = React.forwardRef(({ apr }: Props, ref) => {
           min={0}
           ref={ref as any}
         ></input>
-        <div>MAX</div>
+        <button className="clickable button rounded-lg py-1 px-2.5">MAX</button>
       </div>
       <div className="flex flex-row items-center gap-2">
         <FontAwesomeIcon className="h-4" icon={faCoins}></FontAwesomeIcon>

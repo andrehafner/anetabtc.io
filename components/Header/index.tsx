@@ -10,15 +10,15 @@ const Header: React.FC = () => {
   const theme = useSelector((state: RootState) => state.app.theme);
 
   return (
-    <div className="h-20 p-6 flex flex-row items-center">
-      <div className="h-full gap-2 flex flex-row items-center">
+    <div className="md:h-20 p-6 flex flex-col gap-4 md:gap-0 md:flex-row items-center">
+      <div className="h-8 md:h-full gap-2 flex flex-row items-center">
         <img className="h-full" src={`/logo-theme-${theme}.png`}></img>
         <TVL />
       </div>
-      <div className="h-full gap-2 flex flex-row-reverse items-center gap-2 ml-auto">
+      <div className="h-8 md:h-full gap-2 flex flex-row-reverse items-center gap-2 md:ml-auto">
         <ThemeSwitch></ThemeSwitch>
         <WalletConnector></WalletConnector>
-        <ChainSwitch></ChainSwitch>
+        {/* <ChainSwitch></ChainSwitch> */}
       </div>
     </div>
   );
