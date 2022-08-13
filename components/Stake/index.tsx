@@ -7,8 +7,8 @@ const Stake = () => {
   const [stakingLength, setStakingLength] = useState<StakingLength>(
     StakingLength.sixMonth
   );
-  const [apr, setApr] = useState<number>(15)
-  const [stakingAmount, setStakingAmount] = useState<number>(0)
+  const [apr, setApr] = useState<number>(15);
+  const [stakingAmount, setStakingAmount] = useState<number>(0);
 
   return (
     <div className="w-full p-5 flex justify-center">
@@ -25,7 +25,11 @@ const Stake = () => {
             ></StakingLengthSelect>
             <div className="ml-auto text-agreen">APR {apr}%</div>
           </div>
-          <StakingInput stakingAmount={stakingAmount} setStakingAmount={setStakingAmount} apr={apr}></StakingInput>
+          <StakingInput
+            stakingAmount={stakingAmount}
+            setStakingAmount={setStakingAmount}
+            apr={apr}
+          ></StakingInput>
           <div className="clickable button rounded-lg py-1 px-2.5 text-center">
             Stake
           </div>

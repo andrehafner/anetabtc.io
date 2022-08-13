@@ -7,7 +7,7 @@ import TVL from "./TVL";
 import WalletConnector from "./WalletConnector";
 
 const Header: React.FC = () => {
-  const theme = useSelector((state: RootState) => state.app.theme)
+  const theme = useSelector((state: RootState) => state.app.theme);
 
   return (
     <div className="h-20 p-6 flex flex-row items-center">

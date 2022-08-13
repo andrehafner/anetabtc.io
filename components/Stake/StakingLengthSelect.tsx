@@ -33,9 +33,7 @@ const StakingLengthSelect = ({ stakingLength, setStakingLength }: Props) => {
         ></FontAwesomeIcon>
       </div>
       {showDropdown ? (
-        <div
-          className="absolute mt-2 w-full flex flex-col gap-2 p-2 rounded-lg component border border-theme"
-        >
+        <div className="absolute mt-2 w-full flex flex-col gap-2 p-2 rounded-lg component border border-theme">
           {Object.values(StakingLength).map((value) => {
             return (
               <div
