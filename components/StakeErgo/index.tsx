@@ -1,10 +1,10 @@
 import { StakingLength, StakingState } from "@entities/app";
-import { useCallback, useState } from "react";
+import { useState } from "react";
 import ConfirmStaking from "./ConfirmStaking";
 import InitStaking from "./InitStaking";
-import LoadingStaking from "./LoadingStaking";
-import SuccessStaking from "./SuccessStaking";
-import FailureStaking from "./FailureStaking";
+import LoadingStaking from "@components/StakeSteps/LoadingStaking";
+import SuccessStaking from "@components/StakeSteps/SuccessStaking";
+import FailureStaking from "@components/StakeSteps/FailureStaking";
 
 const StakeCardano = () => {
   const [stakingLength, setStakingLength] = useState<StakingLength>(
