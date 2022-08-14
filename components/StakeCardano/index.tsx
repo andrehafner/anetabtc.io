@@ -6,7 +6,7 @@ import LoadingStaking from "./LoadingStaking";
 import SuccessStaking from "./SuccessStaking";
 import FailureStaking from "./FailureStaking";
 
-const Stake = () => {
+const StakeCardano = () => {
   const [stakingLength, setStakingLength] = useState<StakingLength>(
     StakingLength.sixMonth
   );
@@ -82,4 +82,4 @@ const Stake = () => {
   );
 };
 
-export default Stake;
+export default StakeCardano;

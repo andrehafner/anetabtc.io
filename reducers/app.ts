@@ -29,6 +29,5 @@ const app = createSlice({
   reducers,
 });
 
-export const { toggleTheme, setTheme } =
-  app.actions;
+export const { toggleTheme, setTheme } = app.actions;
 export default app.reducer;

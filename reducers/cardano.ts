@@ -1,6 +1,6 @@
 import { Cip30Wallet, WalletApi } from "@cardano-sdk/cip30";
 import { LocalStorageKey, Theme } from "@entities/app";
-import { CardanoWalletName, ICardanoState } from '@entities/cardano'
+import { CardanoWalletName, ICardanoState } from "@entities/cardano";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 const initialState: ICardanoState = {
@@ -36,6 +36,5 @@ const cardanoSlice = createSlice({
   reducers,
 });
 
-export const { setWallet } =
-  cardanoSlice.actions;
+export const { setWallet } = cardanoSlice.actions;
 export default cardanoSlice.reducer;

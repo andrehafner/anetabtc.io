@@ -16,7 +16,9 @@ const WalletConnector = () => {
   const [showDisconnectButton, setShowDisconnectButton] = useState(false);
   const [walletConnectionStatus, setWalletConnectionStatus] =
     useState<WalletConnectionStatus>(WalletConnectionStatus.notConnected);
-  const { wallet, walletApi } = useSelector((state: RootState) => state.cardano);
+  const { wallet, walletApi } = useSelector(
+    (state: RootState) => state.cardano
+  );
   const dispatch = useDispatch();
 
   /**

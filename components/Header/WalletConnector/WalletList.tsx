@@ -10,7 +10,9 @@ const WalletList = ({
   return cardano ? (
     <div className="flex flex-col gap-4 w-full">
       {Object.keys(cardano)
-        .filter((walletName) => CardanoWalletName[walletName as CardanoWalletName])
+        .filter(
+          (walletName) => CardanoWalletName[walletName as CardanoWalletName]
+        )
         .map((walletName) => (
           <div
             className="rounded-lg border border-theme p-2.5 cursor-pointer"

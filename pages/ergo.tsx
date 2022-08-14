@@ -1,5 +1,5 @@
-import Stake from "@components/Stake";
+import StakeCardano from "@components/StakeCardano";
 
 export default function Cardano() {
-  return <Stake></Stake>;
+  return <StakeCardano></StakeCardano>;
 }
