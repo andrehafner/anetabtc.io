@@ -1,5 +1,14 @@
-import StakeCardano from "@components/StakeCardano";
+import InitCardano from "@layouts/InitCardano";
+import StakeErgo from "@components/StakeErgo";
+import Header from "@components/Header";
 
-export default function Cardano() {
-  return <StakeCardano></StakeCardano>;
+export default function Ergo() {
+  return (
+    <InitCardano>
+      <>
+        <Header></Header>
+        <StakeErgo></StakeErgo>
+      </>
+    </InitCardano>
+  );
 }

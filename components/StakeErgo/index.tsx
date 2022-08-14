@@ -74,9 +74,9 @@ const StakeCardano = () => {
     <div className="w-full p-5 flex justify-center">
       <div className="max-w-lg w-full flex flex-col items-center justify-center">
         {/* Title */}
-        <span className="w-fit text-2xl">NETA/cNETA Staking</span>
+        <span className="w-fit text-2xl">Coming Soon!</span>
         {/* Staking box */}
-        <RenderContentBox></RenderContentBox>
+        {/* <RenderContentBox></RenderContentBox> */}
       </div>
     </div>
   );

@@ -13,7 +13,6 @@ const Layout = ({ children }: { children: JSX.Element }) => {
         <link rel="icon" href="/favicon.ico"></link>
         <title>anetBTC Staking Platform</title>
       </Head>
-      <Header></Header>
       {children}
     </div>
   );

@@ -13,7 +13,7 @@ export default function Home() {
                 Stake cNETA on Cardano
               </button>
             </Link>
-            <Link href="/cardano">
+            <Link href="/ergo">
               <button className="button clickable py-1 rounded-lg w-full">
                 Stake NETA on Ergo
               </button>
