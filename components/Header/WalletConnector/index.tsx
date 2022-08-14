@@ -1,7 +1,7 @@
 import Modal from "@components/Modal";
-import { WalletName } from "@entities/wallet";
-import { WalletConnectionStatus } from "@entities/wallet";
-import { setWallet } from "@reducers/app";
+import { WalletConnectionStatus } from "@entities/app";
+import { CardanoWalletName } from "@entities/cardano";
+import { setWallet } from "@reducers/cardano";
 import { RootState } from "@services/store";
 import { enableWallet } from "@services/wallet";
 import { useEffect, useState } from "react";
@@ -16,7 +16,7 @@ const WalletConnector = () => {
   const [showDisconnectButton, setShowDisconnectButton] = useState(false);
   const [walletConnectionStatus, setWalletConnectionStatus] =
     useState<WalletConnectionStatus>(WalletConnectionStatus.notConnected);
-  const { wallet, walletApi } = useSelector((state: RootState) => state.app);
+  const { wallet, walletApi } = useSelector((state: RootState) => state.cardano);
   const dispatch = useDispatch();
 
   /**
@@ -30,7 +30,7 @@ const WalletConnector = () => {
     }
   }, [wallet]);
 
-  const connectWallet = async (walletName: WalletName) => {
+  const connectWallet = async (walletName: CardanoWalletName) => {
     const { wallet, walletApi } = await enableWallet(walletName);
     dispatch(setWallet({ walletName, wallet, walletApi }));
     setOpenWalletSelection(false);

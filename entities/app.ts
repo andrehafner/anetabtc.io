@@ -1,10 +1,5 @@
-import { Cip30Wallet, WalletApi } from "@cardano-sdk/cip30";
-
-export interface IState {
+export interface IAppState {
   theme: Theme;
-  wallet: Cip30Wallet | null;
-  walletApi: WalletApi | null;
-  blockchain: Blockchain;
 }
 
 export enum Theme {
@@ -33,4 +28,10 @@ export enum StakingState {
   loading,
   success,
   failure,
+}
+
+export enum WalletConnectionStatus {
+  notConnected,
+  connecting,
+  connected,
 }

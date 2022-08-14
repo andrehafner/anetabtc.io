@@ -1,5 +1,5 @@
 import useClickOutside from "@hooks/useClickOutside";
-import { setWallet } from "@reducers/app";
+import { setWallet } from "@reducers/cardano";
 import { useDispatch } from "react-redux";
 
 const Disconnect = ({ closeButton }: { closeButton: Function }) => {

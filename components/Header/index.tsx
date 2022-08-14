@@ -18,7 +18,7 @@ const Header: React.FC = () => {
       <div className="h-8 md:h-full gap-2 flex flex-row-reverse items-center gap-2 md:ml-auto">
         <ThemeSwitch></ThemeSwitch>
         <WalletConnector></WalletConnector>
-        {/* <ChainSwitch></ChainSwitch> */}
+        <ChainSwitch></ChainSwitch>
       </div>
     </div>
   );

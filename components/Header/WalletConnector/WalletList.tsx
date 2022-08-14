@@ -1,20 +1,20 @@
-import { WalletName } from "@entities/wallet";
+import { CardanoWalletName } from "@entities/cardano";
 
 const WalletList = ({
   connectWallet,
 }: {
-  connectWallet: (walletName: WalletName) => void;
+  connectWallet: (walletName: CardanoWalletName) => void;
 }) => {
   const cardano = (window as any).cardano;
 
   return cardano ? (
     <div className="flex flex-col gap-4 w-full">
       {Object.keys(cardano)
-        .filter((walletName) => WalletName[walletName as WalletName])
+        .filter((walletName) => CardanoWalletName[walletName as CardanoWalletName])
         .map((walletName) => (
           <div
             className="rounded-lg border border-theme p-2.5 cursor-pointer"
-            onClick={() => connectWallet(walletName as WalletName)}
+            onClick={() => connectWallet(walletName as CardanoWalletName)}
             key={walletName}
           >
             <div className="flex flex-row gap-2 items-center">

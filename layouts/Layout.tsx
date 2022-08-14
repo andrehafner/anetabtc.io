@@ -3,7 +3,6 @@ import Head from "next/head";
 import Header from "@components/Header";
 import { useSelector } from "react-redux";
 import { RootState } from "@services/store";
-import { Theme } from "@entities/app";
 
 const Layout = ({ children }: { children: JSX.Element }) => {
   const { theme } = useSelector((state: RootState) => state.app);

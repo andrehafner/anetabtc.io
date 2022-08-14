@@ -1,8 +1,8 @@
 import { Cip30Wallet, WalletApi } from "@cardano-sdk/cip30";
-import { WalletName } from "@entities/wallet";
+import { CardanoWalletName } from "@entities/cardano";
 
 export const enableWallet = async (
-  walletName: WalletName
+  walletName: CardanoWalletName
 ): Promise<{ walletApi: WalletApi; wallet: Cip30Wallet }> => {
   const cardano = (window as any).cardano;
   if (cardano == null) throw new Error();

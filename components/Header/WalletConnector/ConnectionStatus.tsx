@@ -1,6 +1,6 @@
 import { Cip30Wallet, WalletApi } from "@cardano-sdk/cip30";
-import { WalletConnectionStatus } from "@entities/wallet";
-import useWallet from "@hooks/useWallet";
+import { WalletConnectionStatus } from "@entities/app";
+import useWallet from "@hooks/useCardanoWallet";
 import { useEffect, useState } from "react";
 
 interface Props {

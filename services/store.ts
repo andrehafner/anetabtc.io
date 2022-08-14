@@ -1,5 +1,6 @@
 import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
-import appReducer from "@reducers/app";
+import app from '@reducers/app'
+import cardano from "@reducers/cardano";
 
 const customizedMiddleware = getDefaultMiddleware({
   serializableCheck: false,
@@ -7,7 +8,8 @@ const customizedMiddleware = getDefaultMiddleware({
 
 export const store = configureStore({
   reducer: {
-    app: appReducer,
+    app: app,
+    cardano: cardano,
   },
   middleware: customizedMiddleware,
 });

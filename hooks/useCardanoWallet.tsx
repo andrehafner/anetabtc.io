@@ -5,7 +5,7 @@ import { Address } from "@emurgo/cardano-serialization-lib-asmjs";
 const Buffer = require("buffer").Buffer;
 
 const useWallet = () => {
-  const { wallet, walletApi } = useSelector((state: RootState) => state.app);
+  const { wallet, walletApi } = useSelector((state: RootState) => state.cardano);
 
   const getWalletAddress = async (): Promise<string> => {
     const addrs = await walletApi?.getUsedAddresses();
