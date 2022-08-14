@@ -3,7 +3,7 @@ import { WalletConnectionStatus } from "@entities/app";
 import { CardanoWalletName } from "@entities/cardano";
 import { setWallet } from "@reducers/cardano";
 import { RootState } from "@services/store";
-import { enableWallet } from "@services/wallet";
+import { enableWallet } from "@services/cardanoWallet";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ConnectionStatus from "./ConnectionStatus";

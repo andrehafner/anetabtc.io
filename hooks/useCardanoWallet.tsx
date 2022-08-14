@@ -20,7 +20,7 @@ const useWallet = () => {
   const getShortWalletAddress = async (): Promise<string> => {
     const addr = await getWalletAddress();
     if (!addr.length) return "";
-    return addr.slice(0, 6) + "..." + addr.slice(addr.length - 6);
+    return addr.slice(0, 6) + "..." + addr.slice(addr.length - 3);
   };
 
   return {

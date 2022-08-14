@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect } from "react";
 import { LocalStorageKey, Theme } from "@entities/app";
-import { enableWallet } from "@services/wallet";
+import { enableWallet } from "@services/cardanoWallet";
 import { CardanoWalletName } from "@entities/cardano";
 import { setTheme } from "@reducers/app";
 import { useDispatch } from "react-redux";

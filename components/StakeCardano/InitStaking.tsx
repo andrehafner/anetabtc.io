@@ -30,7 +30,7 @@ const InitStaking = ({
   };
 
   return (
-    <div className="component p-5 w-full rounded-2xl mt-5 flex flex-col gap-4">
+    <div className="component p-5 w-full rounded-2xl flex flex-col gap-4">
       <div className="w-full flex flex-row items-center">
         <StakingLengthSelect
           setStakingLength={setStakingLength}
