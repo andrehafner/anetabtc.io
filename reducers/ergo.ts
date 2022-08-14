@@ -1,7 +1,5 @@
-import { Cip30Wallet, WalletApi } from "@cardano-sdk/cip30";
-import { LocalStorageKey, Theme } from "@entities/app";
-import { CardanoWalletName, ICardanoState } from "@entities/cardano";
-import { IErgoState } from "@entities/ergo";
+import { LocalStorageKey } from "@entities/app";
+import { IErgoState, NautilusErgoApi } from "@entities/ergo";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 const initialState: IErgoState = {
@@ -14,13 +12,13 @@ const reducers = {
   setWallet: (
     state: any,
     action: PayloadAction<{
-      walletApi: any | null;
+      walletApi: NautilusErgoApi | null;
     }>
   ) => {
     const { walletApi } = action.payload;
     state.walletApi = walletApi;
     if (walletApi) {
-      localStorage.setItem(LocalStorageKey.walletNameErgo, 'nautilus');
+      localStorage.setItem(LocalStorageKey.walletNameErgo, "nautilus");
     } else {
       localStorage.removeItem(LocalStorageKey.walletNameErgo);
     }

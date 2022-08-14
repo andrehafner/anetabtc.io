@@ -10,7 +10,7 @@ import ConnectionStatus from "./ConnectionStatus";
 import Disconnect from "./Disconnect";
 import WalletList from "./WalletList";
 
-const WalletConnector = () => {
+const WalletCardano = () => {
   const [openWalletSelection, setOpenWalletSelection] =
     useState<boolean>(false);
   const [showDisconnectButton, setShowDisconnectButton] = useState(false);
@@ -83,4 +83,4 @@ const WalletConnector = () => {
   );
 };
 
-export default WalletConnector;
+export default WalletCardano;

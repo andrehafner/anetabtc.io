@@ -1,58 +1,62 @@
+import { NautilusErgoApi } from "@entities/ergo";
 import { RootState } from "@services/store";
 import { useSelector } from "react-redux";
-import { Address } from "@emurgo/cardano-serialization-lib-asmjs";
-import { CardanoWalletName } from "@entities/cardano";
-import { Cip30Wallet, WalletApi } from "@cardano-sdk/cip30";
-
-const Buffer = require("buffer").Buffer;
 
 const useWallet = () => {
-  const { walletApi } = useSelector(
-    (state: RootState) => state.ergo
-  );
+  const { walletApi } = useSelector((state: RootState) => state.ergo);
 
-  const enableWallet = async (
-    
-  ): Promise<{ walletApi: WalletApi | null }> => {
-    const ergoConnector = (window as any).ergoConnector
-    if (ergoConnector == null) return {
-      walletApi: null
-    }
-
-    const nautilus = ergoConnector.nautilus
-    if (nautilus == null) return {
-      walletApi: null
-    }
-
-    const nautilusConnected = await nautilus.connect()
-    if (nautilusConnected) {
-      return {
-        walletApi: await nautilus.getContext()
+  const enableWallet = async (): Promise<NautilusErgoApi | null> => {
+    /**
+     * check if ergo has been enabled, if not, request access. If request denied
+     * return null.
+     *
+     * NOTE: this implementation is deprecated, will use nautilus as default
+     * wallet for ergo
+     */
+    /*
+    if (!(await (window as any).ergo_check_read_access())) {
+      if(!(await (window as any).ergo_request_read_access())) {
+        return { walletApi: null }
       }
-    } else {
-      return {
-        walletApi: null
-      } 
     }
+
+    return {
+      walletApi: ergo // eslint-disable-line
+    }
+    */
+
+    /**
+     * Recommended by nautilus to use window.ergoConnector
+     */
+    const ergoConnector = (window as any).ergoConnector;
+    if (ergoConnector == null) return null;
+
+    const nautilus = ergoConnector.nautilus;
+    if (nautilus == null) return null;
+
+    const nautilusConnected = await nautilus.connect();
+    if (nautilusConnected) {
+      return await nautilus.getContext();
+    }
+    return null;
   };
 
-  // const getWalletAddress = async (): Promise<string> => {
-  //   const addrs = await walletApi?.getUsedAddresses();
-  //   if (addrs == null) return "";
-  //   const addrBuffer = Buffer.from(addrs[0], "hex");
-  //   const addr = Address.from_bytes(addrBuffer).to_bech32();
-  //   return addr;
-  // };
+  const getWalletAddress = async (): Promise<string> => {
+    if (walletApi == null) return "";
+    const addrs = await walletApi.get_used_addresses();
+    const addr = addrs[0];
+    return addr;
+  };
 
-  // const getShortWalletAddress = async (): Promise<string> => {
-  //   const addr = await getWalletAddress();
-  //   if (!addr.length) return "";
-  //   return addr.slice(0, 6) + "..." + addr.slice(addr.length - 3);
-  // };
+  const getShortWalletAddress = async (): Promise<string> => {
+    const addr = await getWalletAddress();
+    if (!addr.length) return "";
+    return addr.slice(0, 6) + "..." + addr.slice(addr.length - 3);
+  };
 
   return {
-    // getWalletAddress,
-    // getShortWalletAddress,
+    getWalletAddress,
+    getShortWalletAddress,
     enableWallet,
   };
 };
