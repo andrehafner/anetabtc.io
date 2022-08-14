@@ -1,14 +1,14 @@
-import InitCardano from "@layouts/InitCardano";
+import InitErgo from "@layouts/InitErgo";
 import StakeErgo from "@components/StakeErgo";
 import Header from "@components/Header";
 
 export default function Ergo() {
   return (
-    <InitCardano>
+    <InitErgo>
       <>
         <Header></Header>
         <StakeErgo></StakeErgo>
       </>
-    </InitCardano>
+    </InitErgo>
   );
 }

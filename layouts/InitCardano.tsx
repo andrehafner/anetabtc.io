@@ -1,14 +1,15 @@
 import React from "react";
 import { useEffect } from "react";
 import { LocalStorageKey, Theme } from "@entities/app";
-import { enableWallet } from "@services/cardanoWallet";
 import { CardanoWalletName } from "@entities/cardano";
 import { setTheme } from "@reducers/app";
 import { useDispatch } from "react-redux";
 import { setWallet } from "@reducers/cardano";
+import useCardanoWallet from "@hooks/useCardanoWallet";
 
-const InitEffect = ({ children }: { children: JSX.Element }) => {
+const InitCardano = ({ children }: { children: JSX.Element }) => {
   const dispatch = useDispatch();
+  const { enableWallet } = useCardanoWallet();
 
   const initWallet = async (walletName: CardanoWalletName) => {
     try {
@@ -31,4 +32,4 @@ const InitEffect = ({ children }: { children: JSX.Element }) => {
   return <>{children}</>;
 };
 
-export default InitEffect;
+export default InitCardano;

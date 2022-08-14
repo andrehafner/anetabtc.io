@@ -10,6 +10,7 @@ export enum Theme {
 export enum LocalStorageKey {
   theme = "theme",
   walletName = "wallet-name",
+  walletNameErgo = "wallet-name-ergo",
 }
 
 export enum Blockchain {
