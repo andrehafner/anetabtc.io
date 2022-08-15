@@ -1,5 +1,5 @@
 import useClickOutside from "@hooks/useClickOutside";
-import { setWallet } from "@reducers/cardano";
+import { setWallet } from "@reducers/ergo";
 import { useDispatch } from "react-redux";
 
 const Disconnect = ({ closeButton }: { closeButton: Function }) => {
@@ -8,7 +8,7 @@ const Disconnect = ({ closeButton }: { closeButton: Function }) => {
 
   const handleOnClick = () => {
     closeButton();
-    dispatch(setWallet({ walletName: null, wallet: null, walletApi: null }));
+    dispatch(setWallet({ walletApi: null }));
   };
 
   return (

@@ -1,5 +1,5 @@
 import Header from "@components/Header";
-import StakeCardano from "@components/StakeCardano";
+import Stake from "@components/Stake";
 import InitCardano from "@layouts/InitCardano";
 
 export default function Cardano() {
@@ -7,7 +7,7 @@ export default function Cardano() {
     <InitCardano>
       <>
         <Header></Header>
-        <StakeCardano></StakeCardano>
+        <Stake></Stake>
       </>
     </InitCardano>
   );

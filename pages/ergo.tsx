@@ -1,5 +1,5 @@
 import InitErgo from "@layouts/InitErgo";
-import StakeErgo from "@components/StakeErgo";
+import Stake from "@components/Stake";
 import Header from "@components/Header";
 
 export default function Ergo() {
@@ -7,7 +7,7 @@ export default function Ergo() {
     <InitErgo>
       <>
         <Header></Header>
-        <StakeErgo></StakeErgo>
+        <Stake></Stake>
       </>
     </InitErgo>
   );

@@ -1,6 +1,4 @@
-import Modal from "@components/Modal";
 import { WalletConnectionStatus } from "@entities/app";
-import { CardanoWalletName } from "@entities/cardano";
 import { setWallet } from "@reducers/ergo";
 import { RootState } from "@services/store";
 import useErgoWallet from "@hooks/useErgoWallet";
@@ -8,7 +6,6 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ConnectionStatus from "./ConnectionStatus";
 import Disconnect from "./Disconnect";
-import WalletList from "./WalletList";
 
 const WalletCardano = () => {
   const [showDisconnectButton, setShowDisconnectButton] = useState(false);

@@ -8,8 +8,6 @@ interface Props {
   walletConnectionStatus: WalletConnectionStatus;
 }
 
-const Buffer = require("buffer").Buffer;
-
 const ConnectionStatus = ({ walletApi, walletConnectionStatus }: Props) => {
   const { getShortWalletAddress } = useWallet();
   const [addr, setAddr] = useState("");
