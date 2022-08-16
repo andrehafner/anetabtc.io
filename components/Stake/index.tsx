@@ -4,13 +4,7 @@ import {
   StakingState,
   STAKING_INFO,
 } from "@entities/app";
-import {
-  createContext,
-  useCallback,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
+import { createContext, useCallback, useState } from "react";
 import ConfirmStaking from "./ConfirmStaking";
 import InitStaking from "./InitStaking";
 import LoadingStaking from "./LoadingStaking";
@@ -20,11 +14,7 @@ import useCardanoWallet from "@hooks/useCardanoWallet";
 import useErgoWallet from "@hooks/useErgoWallet";
 import { useRouter } from "next/router";
 
-export const StakeContext = createContext({
-  ...STAKING_INFO[StakingLength.sixMonth],
-  stakingAmount: 0,
-  stakingLength: StakingLength.sixMonth,
-});
+export const StakeContext = createContext<any>(null);
 
 const Stake = () => {
   /**
@@ -63,29 +53,14 @@ const Stake = () => {
       case StakingState.loading:
         return <LoadingStaking></LoadingStaking>;
       case StakingState.confirm:
-        return (
-          <ConfirmStaking
-            setStakingState={setStakingState}
-            submitStake={submitStake}
-          ></ConfirmStaking>
-        );
+        return <ConfirmStaking></ConfirmStaking>;
       case StakingState.success:
-        return (
-          <SuccessStaking setStakingState={setStakingState}></SuccessStaking>
-        );
+        return <SuccessStaking></SuccessStaking>;
       case StakingState.failure:
-        return (
-          <FailureStaking setStakingState={setStakingState}></FailureStaking>
-        );
+        return <FailureStaking></FailureStaking>;
       case StakingState.init:
       default:
-        return (
-          <InitStaking
-            setStakingLength={setStakingLength}
-            setStakingAmount={setStakingAmount}
-            setStakingState={setStakingState}
-          ></InitStaking>
-        );
+        return <InitStaking></InitStaking>;
     }
   }, [stakingState]);
 
@@ -93,6 +68,10 @@ const Stake = () => {
     ...STAKING_INFO[stakingLength],
     stakingAmount: stakingAmount,
     stakingLength: stakingLength,
+    setStakingState,
+    setStakingLength,
+    setStakingAmount,
+    submitStake,
   };
 
   return (

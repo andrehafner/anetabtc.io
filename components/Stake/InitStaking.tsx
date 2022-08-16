@@ -4,20 +4,11 @@ import { StakeContext } from ".";
 import StakingInput from "./StakingInput";
 import StakingLengthSelect from "./StakingLengthSelect";
 
-interface Props {
-  setStakingLength: (arg: StakingLength) => void;
-  setStakingAmount: (arg: number) => void;
-  setStakingState: (arg: StakingState) => void;
-}
-
-const InitStaking = ({
-  setStakingLength,
-  setStakingAmount,
-  setStakingState,
-}: Props) => {
+const InitStaking = () => {
   const inputRef = useRef<HTMLInputElement>(null);
   const stakeContext = useContext(StakeContext);
-  const { apr } = stakeContext;
+  const { apr, setStakingState, setStakingAmount, setStakingLength } =
+    stakeContext;
 
   const handleStake = () => {
     if (inputRef.current == null) return;
@@ -30,9 +21,7 @@ const InitStaking = ({
   return (
     <div className="component p-5 w-full rounded-2xl flex flex-col gap-4">
       <div className="w-full flex flex-row items-center">
-        <StakingLengthSelect
-          setStakingLength={setStakingLength}
-        ></StakingLengthSelect>
+        <StakingLengthSelect></StakingLengthSelect>
         <div className="ml-auto text-agreen">APR {apr}%</div>
       </div>
       <StakingInput ref={inputRef}></StakingInput>

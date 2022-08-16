@@ -2,13 +2,9 @@ import { StakingLength, StakingState } from "@entities/app";
 import { useContext } from "react";
 import { StakeContext } from ".";
 
-interface Props {
-  setStakingState: (arg: StakingState) => void;
-  submitStake: () => void;
-}
-
-const ConfirmStaking = ({ setStakingState, submitStake }: Props) => {
-  const { stakingAmount, text, calcRewards } = useContext(StakeContext);
+const ConfirmStaking = () => {
+  const { stakingAmount, text, calcRewards, setStakingState, submitStake } =
+    useContext(StakeContext);
   return (
     <div className="component p-5 w-full rounded-2xl mt-5 flex flex-col gap-4">
       <div className="border border-theme p-5 rounded-lg flex flex-col gap-4">

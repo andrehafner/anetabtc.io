@@ -6,12 +6,8 @@ import { faAngleDown, faAngleUp } from "@fortawesome/free-solid-svg-icons";
 import useClickOutside from "@hooks/useClickOutside";
 import { StakeContext } from ".";
 
-interface Props {
-  setStakingLength: (length: StakingLength) => void;
-}
-
-const StakingLengthSelect = ({ setStakingLength }: Props) => {
-  const { stakingLength, text } = useContext(StakeContext);
+const StakingLengthSelect = () => {
+  const { stakingLength, text, setStakingLength } = useContext(StakeContext);
   const [showDropdown, setShowDropdown] = useState(false);
   const ref = useClickOutside(() => setShowDropdown(false));
 
