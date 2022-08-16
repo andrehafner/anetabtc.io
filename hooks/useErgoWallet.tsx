@@ -55,10 +55,15 @@ const useWallet = () => {
     return addr.slice(0, 6) + "..." + addr.slice(addr.length - 3);
   };
 
+  const stake = () => {
+    console.log("staking...");
+  };
+
   return {
     getWalletAddress,
     getShortWalletAddress,
     enableWallet,
+    stake,
   };
 };
 

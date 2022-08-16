@@ -4,12 +4,20 @@ import {
   StakingState,
   STAKING_INFO,
 } from "@entities/app";
-import { createContext, useContext, useEffect, useState } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import ConfirmStaking from "./ConfirmStaking";
 import InitStaking from "./InitStaking";
 import LoadingStaking from "./LoadingStaking";
 import SuccessStaking from "./SuccessStaking";
 import FailureStaking from "./FailureStaking";
+import useCardanoWallet from "@hooks/useCardanoWallet";
+import useErgoWallet from "@hooks/useErgoWallet";
 import { useRouter } from "next/router";
 
 export const StakeContext = createContext({
@@ -24,6 +32,8 @@ const Stake = () => {
    */
   const pathname = useRouter().pathname;
   const currency = pathname === "/ergo" ? Currency.NETA : Currency.cNETA;
+  const stakeOnCardano = useCardanoWallet().stake;
+  const stakeOnErgo = useErgoWallet().stake;
 
   const [stakingLength, setStakingLength] = useState<StakingLength>(
     StakingLength.sixMonth
@@ -34,15 +44,21 @@ const Stake = () => {
   );
 
   const submitStake = () => {
-    console.log(stakingAmount, stakingLength);
+    switch (pathname) {
+      case "/ergo":
+        stakeOnErgo();
+        break;
+      case "/cardano":
+        stakeOnCardano();
+        break;
+      default:
+        return;
+    }
+
     setStakingState(StakingState.success);
-    /**
-     * handle tx
-     */
-    // setStakingState(StakingState.init)
   };
 
-  const RenderContentBox = () => {
+  const RenderContentBox = useCallback(() => {
     switch (stakingState) {
       case StakingState.loading:
         return <LoadingStaking></LoadingStaking>;
@@ -71,7 +87,7 @@ const Stake = () => {
           ></InitStaking>
         );
     }
-  };
+  }, [stakingState]);
 
   const context = {
     ...STAKING_INFO[stakingLength],
