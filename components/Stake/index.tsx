@@ -51,16 +51,16 @@ const Stake = () => {
   const RenderContentBox = useCallback(() => {
     switch (stakingState) {
       case StakingState.loading:
-        return <LoadingStaking></LoadingStaking>;
+        return <LoadingStaking />;
       case StakingState.confirm:
-        return <ConfirmStaking></ConfirmStaking>;
+        return <ConfirmStaking />;
       case StakingState.success:
-        return <SuccessStaking></SuccessStaking>;
+        return <SuccessStaking />;
       case StakingState.failure:
-        return <FailureStaking></FailureStaking>;
+        return <FailureStaking />;
       case StakingState.init:
       default:
-        return <InitStaking></InitStaking>;
+        return <InitStaking />;
     }
   }, [stakingState]);
 
@@ -68,6 +68,7 @@ const Stake = () => {
     ...STAKING_INFO[stakingLength],
     stakingAmount: stakingAmount,
     stakingLength: stakingLength,
+    currency,
     setStakingState,
     setStakingLength,
     setStakingAmount,

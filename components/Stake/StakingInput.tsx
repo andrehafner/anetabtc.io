@@ -4,7 +4,7 @@ import React, { Ref, useContext, useState } from "react";
 import { StakeContext } from ".";
 
 const StakingInput = React.forwardRef(({}, ref) => {
-  const { calcRewards } = useContext(StakeContext);
+  const { calcRewards, currency } = useContext(StakeContext);
   const [amount, setAmount] = useState("");
 
   return (
@@ -26,7 +26,7 @@ const StakingInput = React.forwardRef(({}, ref) => {
         <FontAwesomeIcon className="h-4" icon={faCoins}></FontAwesomeIcon>
         Staking Rewards
         <div className="ml-auto">
-          {isNaN(Number(amount)) ? 0 : calcRewards(Number(amount))} cNETA
+          {isNaN(Number(amount)) ? 0 : calcRewards(Number(amount))} {currency}
         </div>
       </div>
     </div>
