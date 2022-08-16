@@ -13,6 +13,7 @@ const useWallet = () => {
      * NOTE: this implementation is deprecated, will use nautilus as default
      * wallet for ergo
      */
+
     /*
     if (!(await (window as any).ergo_check_read_access())) {
       if(!(await (window as any).ergo_request_read_access())) {

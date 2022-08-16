@@ -11,23 +11,25 @@ const InitCardano = ({ children }: { children: JSX.Element }) => {
   const dispatch = useDispatch();
   const { enableWallet } = useCardanoWallet();
 
-  const initWallet = async (walletName: CardanoWalletName) => {
-    try {
-      const { wallet, walletApi } = await enableWallet(walletName);
-      dispatch(setWallet({ walletName, wallet, walletApi }));
-    } catch (e) {}
-  };
-
   useEffect(() => {
-    const savedTheme = localStorage.getItem(LocalStorageKey.theme);
-    const savedWalletName = localStorage.getItem(LocalStorageKey.walletName);
-    if (savedTheme) {
-      dispatch(setTheme(savedTheme as Theme));
-    }
-    if (savedWalletName) {
-      initWallet(savedWalletName as CardanoWalletName);
-    }
-  });
+    (async () => {
+      const savedTheme = localStorage.getItem(LocalStorageKey.theme);
+      const savedWalletName = localStorage.getItem(
+        LocalStorageKey.walletNameCardano
+      ) as CardanoWalletName;
+      if (savedTheme) {
+        dispatch(setTheme(savedTheme as Theme));
+      }
+      if (savedWalletName && savedWalletName in CardanoWalletName) {
+        try {
+          const { wallet, walletApi } = await enableWallet(savedWalletName);
+          dispatch(
+            setWallet({ walletName: savedWalletName, wallet, walletApi })
+          );
+        } catch (e) {}
+      }
+    })();
+  }, []);
 
   return <>{children}</>;
 };

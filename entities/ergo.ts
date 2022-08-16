@@ -2,6 +2,10 @@ export interface IErgoState {
   walletApi: NautilusErgoApi | null;
 }
 
+export enum ErgoWalletName {
+  nautilus = "nautilus",
+}
+
 export interface NautilusErgoApi {
   auth: Function;
   constructor: Function;

@@ -23,9 +23,9 @@ const reducers = {
     state.wallet = wallet;
     state.walletApi = walletApi;
     if (walletName) {
-      localStorage.setItem(LocalStorageKey.walletName, walletName);
+      localStorage.setItem(LocalStorageKey.walletNameCardano, walletName);
     } else {
-      localStorage.removeItem(LocalStorageKey.walletName);
+      localStorage.removeItem(LocalStorageKey.walletNameCardano);
     }
   },
 };
