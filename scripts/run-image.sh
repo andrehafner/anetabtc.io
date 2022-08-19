@@ -1,0 +1,1 @@
+docker run --name aneta -p 3000:3000 aneta/staking-platform
