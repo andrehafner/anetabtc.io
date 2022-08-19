@@ -6,9 +6,11 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ConnectionStatus from "./ConnectionStatus";
 import Disconnect from "./Disconnect";
+import Modal from "@components/Modal";
 
 const WalletCardano = () => {
   const [showDisconnectButton, setShowDisconnectButton] = useState(false);
+  const [showNautilusNotFound, setShowNautilusNotFound] = useState(false);
   const [walletConnectionStatus, setWalletConnectionStatus] =
     useState<WalletConnectionStatus>(WalletConnectionStatus.notConnected);
   const walletApi = useSelector((state: RootState) => state.ergo.walletApi);
@@ -28,8 +30,12 @@ const WalletCardano = () => {
 
   const connectWallet = async () => {
     const walletApi = await enableWallet();
-    dispatch(setWallet({ walletApi }));
-    setWalletConnectionStatus(WalletConnectionStatus.connected);
+    if (walletApi == null) {
+      setShowNautilusNotFound(true);
+    } else {
+      dispatch(setWallet({ walletApi }));
+      setWalletConnectionStatus(WalletConnectionStatus.connected);
+    }
   };
 
   const handleOnClick = () => {
@@ -48,6 +54,11 @@ const WalletCardano = () => {
 
   return (
     <>
+      {showNautilusNotFound ? (
+        <Modal closeModal={() => setShowNautilusNotFound(false)}>
+          <div>Nautilus Wallet not found</div>
+        </Modal>
+      ) : null}
       <div className="relative h-full">
         <div
           className="clickable component h-full px-2.5 rounded-lg flex items-center"

@@ -27,7 +27,9 @@ const WalletList = ({
         ))}
     </div>
   ) : (
-    <div className="flex flex-col gap-4 w-full">No Cardano wallet found</div>
+    <div className="flex flex-col items-center gap-4 w-full">
+      No Cardano wallet found
+    </div>
   );
 };
 
