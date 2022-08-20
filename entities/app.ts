@@ -1,3 +1,6 @@
+export const ERGO_TX_FORMAT = 'eip-12'
+export const NETA_PROJECT_ID = 'neta'
+
 export interface IAppState {
   theme: Theme;
 }
@@ -60,4 +63,8 @@ export enum WalletConnectionStatus {
 export enum Currency {
   cNETA = "cNETA",
   NETA = "NETA",
+}
+
+export enum ErrorKey {
+  STAKE_FAIL = 'STAKE_FAIL'
 }

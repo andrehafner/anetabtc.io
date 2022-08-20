@@ -33,19 +33,23 @@ const Stake = () => {
     StakingState.init
   );
 
-  const submitStake = () => {
-    switch (pathname) {
-      case "/ergo":
-        stakeOnErgo();
-        break;
-      case "/cardano":
-        stakeOnCardano();
-        break;
-      default:
-        return;
+  const submitStake = async () => {
+    try {
+      switch (pathname) {
+        case "/ergo":
+          await stakeOnErgo(stakingAmount);
+          break;
+        case "/cardano":
+          await stakeOnCardano();
+          break;
+        default:
+          return;
+      }
+      setStakingState(StakingState.success);
+    } catch (e) {
+      console.log(e)
+      setStakingState(StakingState.failure);
     }
-
-    setStakingState(StakingState.success);
   };
 
   const RenderContentBox = useCallback(() => {

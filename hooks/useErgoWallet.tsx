@@ -1,6 +1,8 @@
+import { ERGO_TX_FORMAT, ErrorKey, NETA_PROJECT_ID } from "@entities/app";
 import { NautilusErgoApi } from "@entities/ergo";
 import { RootState } from "@services/store";
 import { useSelector } from "react-redux";
+import axios from 'axios'
 
 const useWallet = () => {
   const { walletApi } = useSelector((state: RootState) => state.ergo);
@@ -49,14 +51,54 @@ const useWallet = () => {
     return addr;
   };
 
+  const getWalletAddresses = async (): Promise<string[]> => {
+    if (walletApi == null) return [];
+    const addrs = await walletApi.get_used_addresses();
+    return addrs;
+  }
+
   const getShortWalletAddress = async (): Promise<string> => {
     const addr = await getWalletAddress();
     if (!addr.length) return "";
     return addr.slice(0, 6) + "..." + addr.slice(addr.length - 3);
   };
 
-  const stake = () => {
-    console.log("staking...");
+  const stake = async (amount: number) => {
+    /**
+     * since neta/cneta doesnt have decimals, we don't need to convert the amount
+     */
+
+    const address = await getWalletAddress()
+    const addresses = await getWalletAddresses()
+    const defaultOptions = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+
+    /**
+     * if no address => staking fail
+     */
+    if (address === "" || addresses.length === 0) {
+      throw new Error(ErrorKey.STAKE_FAIL)
+    }
+
+    const request = {
+      stakeBox: null, // TODO: change this
+      amount,
+      address,
+      utxos: [],
+      txFormat: ERGO_TX_FORMAT,
+      addresses,
+    };
+
+    const res = await axios.post(
+      `${process.env.ERGOPAD_API_URL}/staking/${NETA_PROJECT_ID}/addstake/`,
+      request,
+      { ...defaultOptions }
+    );
+
+    return res
   };
 
   return {

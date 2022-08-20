@@ -5,6 +5,9 @@ const nextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
+  env: {
+    ERGOPAD_API_URL: 'https://api.ergopad.io',
+  },
 }
 
 module.exports = nextConfig
