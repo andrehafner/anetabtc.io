@@ -13,6 +13,8 @@ import FailureStaking from "./FailureStaking";
 import useCardanoWallet from "@hooks/useCardanoWallet";
 import useErgoWallet from "@hooks/useErgoWallet";
 import { useRouter } from "next/router";
+import { useDispatch } from "react-redux";
+import { setErrorModalSetting } from "@reducers/app";
 
 export const StakeContext = createContext<any>(null);
 
@@ -20,6 +22,7 @@ const Stake = () => {
   /**
    * get currency for staking according to network
    */
+  const dispatch = useDispatch();
   const pathname = useRouter().pathname;
   const currency = pathname === "/ergo" ? Currency.NETA : Currency.cNETA;
   const stakeOnCardano = useCardanoWallet().stake;
@@ -47,7 +50,12 @@ const Stake = () => {
       }
       setStakingState(StakingState.success);
     } catch (e) {
-      console.log(e)
+      dispatch(
+        setErrorModalSetting({
+          open: true,
+          text: "staking fail",
+        })
+      );
       setStakingState(StakingState.failure);
     }
   };

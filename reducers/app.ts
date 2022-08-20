@@ -3,6 +3,10 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 const initialState: IAppState = {
   theme: Theme.dark,
+  errorModalSetting: {
+    text: "",
+    open: false,
+  },
 };
 
 const name = "app";
@@ -21,6 +25,15 @@ const reducers = {
     state.theme = action.payload;
     localStorage.setItem(LocalStorageKey.theme, action.payload);
   },
+  setErrorModalSetting: (
+    state: IAppState,
+    action: PayloadAction<{ text?: string; open?: boolean }>
+  ) => {
+    state.errorModalSetting = {
+      text: action.payload.text ?? "Something went wrong",
+      open: action.payload.open ?? true,
+    };
+  },
 };
 
 const app = createSlice({
@@ -29,5 +42,5 @@ const app = createSlice({
   reducers,
 });
 
-export const { toggleTheme, setTheme } = app.actions;
+export const { toggleTheme, setTheme, setErrorModalSetting } = app.actions;
 export default app.reducer;
