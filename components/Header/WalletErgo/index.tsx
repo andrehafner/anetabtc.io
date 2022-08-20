@@ -8,6 +8,7 @@ import ConnectionStatus from "./ConnectionStatus";
 import Disconnect from "./Disconnect";
 import Modal from "@components/Modal";
 import { setErrorModalSetting } from "@reducers/app";
+import useErrorHandler from "@hooks/useErrorHandler";
 
 const WalletCardano = () => {
   const [showDisconnectButton, setShowDisconnectButton] = useState(false);
@@ -17,6 +18,7 @@ const WalletCardano = () => {
   const walletApi = useSelector((state: RootState) => state.ergo.walletApi);
   const dispatch = useDispatch();
   const { enableWallet } = useErgoWallet();
+  const { handleError } = useErrorHandler();
 
   /**
    * check if wallet has been automatically connected onload
@@ -39,19 +41,7 @@ const WalletCardano = () => {
         setWalletConnectionStatus(WalletConnectionStatus.connected);
       }
     } catch (e: any) {
-      if (Object.keys(e).length === 0) {
-        /**
-         * if there is no keys => error was thrown from client
-         */
-        dispatch(
-          setErrorModalSetting({ text: ERROR_MESSAGE[e.message as ErrorKey] })
-        );
-      } else {
-        /**
-         * handle error from API/other sources
-         */
-        dispatch(setErrorModalSetting({ text: ERROR_MESSAGE.UNKNOWN_ERROR }));
-      }
+      handleError(e);
     }
   };
 

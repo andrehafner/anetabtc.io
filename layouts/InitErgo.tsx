@@ -5,9 +5,11 @@ import { useDispatch } from "react-redux";
 import { ErrorKey, ERROR_MESSAGE, LocalStorageKey, Theme } from "@entities/app";
 import { ErgoWalletName } from "@entities/ergo";
 import { setErrorModalSetting, setTheme } from "@reducers/app";
+import useErrorHandler from "@hooks/useErrorHandler";
 
 const InitErgo = ({ children }: { children: JSX.Element }) => {
   const { enableWallet } = useErgoWallet();
+  const { handleError } = useErrorHandler();
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -27,23 +29,7 @@ const InitErgo = ({ children }: { children: JSX.Element }) => {
           const walletApi = await enableWallet();
           dispatch(setWallet({ walletApi }));
         } catch (e: any) {
-          if (Object.keys(e).length === 0) {
-            /**
-             * if there is no keys => error was thrown from client
-             */
-            dispatch(
-              setErrorModalSetting({
-                text: ERROR_MESSAGE[e.message as ErrorKey],
-              })
-            );
-          } else {
-            /**
-             * handle error from API/other sources
-             */
-            dispatch(
-              setErrorModalSetting({ text: ERROR_MESSAGE.UNKNOWN_ERROR })
-            );
-          }
+          handleError(e);
         }
       }
     })();

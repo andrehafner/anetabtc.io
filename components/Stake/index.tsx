@@ -15,6 +15,7 @@ import useErgoWallet from "@hooks/useErgoWallet";
 import { useRouter } from "next/router";
 import { useDispatch } from "react-redux";
 import { setErrorModalSetting } from "@reducers/app";
+import useErrorHandler from "@hooks/useErrorHandler";
 
 export const StakeContext = createContext<any>(null);
 
@@ -27,6 +28,7 @@ const Stake = () => {
   const currency = pathname === "/ergo" ? Currency.NETA : Currency.cNETA;
   const stakeOnCardano = useCardanoWallet().stake;
   const stakeOnErgo = useErgoWallet().stake;
+  const { handleError } = useErrorHandler();
 
   const [stakingLength, setStakingLength] = useState<StakingLength>(
     StakingLength.sixMonth
@@ -50,12 +52,7 @@ const Stake = () => {
       }
       setStakingState(StakingState.success);
     } catch (e) {
-      dispatch(
-        setErrorModalSetting({
-          open: true,
-          text: "staking fail",
-        })
-      );
+      handleError(e);
       setStakingState(StakingState.failure);
     }
   };
