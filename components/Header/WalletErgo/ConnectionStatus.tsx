@@ -21,7 +21,6 @@ const ConnectionStatus = ({ walletApi, walletConnectionStatus }: Props) => {
         const address = await getShortWalletAddress();
         setAddr(address);
       } catch (e: any) {
-        console.log(e);
         if (Object.keys(e).length === 0) {
           /**
            * if there is no keys => error was thrown from client

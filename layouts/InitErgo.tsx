@@ -2,9 +2,9 @@ import { useEffect } from "react";
 import useErgoWallet from "@hooks/useErgoWallet";
 import { setWallet } from "@reducers/ergo";
 import { useDispatch } from "react-redux";
-import { LocalStorageKey, Theme } from "@entities/app";
+import { ErrorKey, ERROR_MESSAGE, LocalStorageKey, Theme } from "@entities/app";
 import { ErgoWalletName } from "@entities/ergo";
-import { setTheme } from "@reducers/app";
+import { setErrorModalSetting, setTheme } from "@reducers/app";
 
 const InitErgo = ({ children }: { children: JSX.Element }) => {
   const { enableWallet } = useErgoWallet();
@@ -12,8 +12,6 @@ const InitErgo = ({ children }: { children: JSX.Element }) => {
 
   useEffect(() => {
     (async () => {
-      const walletApi = await enableWallet();
-      dispatch(setWallet({ walletApi }));
       const savedTheme = localStorage.getItem(LocalStorageKey.theme);
       const savedWalletName = localStorage.getItem(
         LocalStorageKey.walletNameErgo
@@ -28,7 +26,25 @@ const InitErgo = ({ children }: { children: JSX.Element }) => {
            */
           const walletApi = await enableWallet();
           dispatch(setWallet({ walletApi }));
-        } catch (e) {}
+        } catch (e: any) {
+          if (Object.keys(e).length === 0) {
+            /**
+             * if there is no keys => error was thrown from client
+             */
+            dispatch(
+              setErrorModalSetting({
+                text: ERROR_MESSAGE[e.message as ErrorKey],
+              })
+            );
+          } else {
+            /**
+             * handle error from API/other sources
+             */
+            dispatch(
+              setErrorModalSetting({ text: ERROR_MESSAGE.UNKNOWN_ERROR })
+            );
+          }
+        }
       }
     })();
   }, []);
