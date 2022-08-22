@@ -4,12 +4,15 @@ import React, { Ref, useContext, useState } from "react";
 import { StakeContext } from ".";
 
 const StakingInput = React.forwardRef(({}, ref) => {
-  const { calcRewards, currency } = useContext(StakeContext);
+  const { calcRewards, currency, apr } = useContext(StakeContext);
   const [amount, setAmount] = useState("");
 
   return (
     <div className="border border-theme p-5 rounded-lg flex flex-col gap-4">
-      Stake Amount
+      <div className="flex items-center">
+        Stake Amount
+        <div className="text-agreen ml-auto">APR {apr}%</div>
+      </div>
       <div className="flex flex-row items-center gap-2">
         <img src="/logo.png" className="h-8"></img>
         <input

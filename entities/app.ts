@@ -30,7 +30,7 @@ export enum Blockchain {
 
 export enum StakingLength {
   sixMonth = "sixMonth",
-  twelveMonth = "twelveMonth",
+  // twelveMonth = "twelveMonth",
 }
 
 export const STAKING_INFO: Record<
@@ -39,18 +39,18 @@ export const STAKING_INFO: Record<
 > = {
   [StakingLength.sixMonth]: {
     text: "6 Months",
-    apr: 10,
+    apr: 12,
     calcRewards: (stakingAmount: number) => {
       return ((stakingAmount * 0.1) / 2).toFixed(2);
     },
   },
-  [StakingLength.twelveMonth]: {
-    text: "12 Months",
-    apr: 15,
-    calcRewards: (stakingAmount: number) => {
-      return (stakingAmount * 0.15).toFixed(2);
-    },
-  },
+  // [StakingLength.twelveMonth]: {
+  //   text: "12 Months",
+  //   apr: 15,
+  //   calcRewards: (stakingAmount: number) => {
+  //     return (stakingAmount * 0.15).toFixed(2);
+  //   },
+  // },
 };
 
 export enum StakingState {

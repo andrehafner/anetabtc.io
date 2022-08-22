@@ -20,10 +20,10 @@ const InitStaking = () => {
 
   return (
     <div className="component p-5 w-full rounded-2xl flex flex-col gap-4">
-      <div className="w-full flex flex-row items-center">
+      {/* <div className="w-full flex flex-row items-center">
         <StakingLengthSelect></StakingLengthSelect>
         <div className="ml-auto text-agreen">APR {apr}%</div>
-      </div>
+      </div> */}
       <StakingInput ref={inputRef}></StakingInput>
       <button
         className="clickable button rounded-lg py-1 px-2.5 text-center"
