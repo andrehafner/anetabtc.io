@@ -3,6 +3,7 @@ import { NautilusErgoApi } from "@entities/ergo";
 import { RootState } from "@services/store";
 import { useSelector } from "react-redux";
 import axios from "axios";
+import { stakeNeta } from "@services/ergo";
 
 const useWallet = () => {
   const { walletApi } = useSelector((state: RootState) => state.ergo);
@@ -50,11 +51,6 @@ const useWallet = () => {
 
     const address = await getWalletAddress();
     const addresses = await getWalletAddresses();
-    const defaultOptions = {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
 
     /**
      * if no address => staking fail
@@ -71,15 +67,7 @@ const useWallet = () => {
       addresses,
     };
 
-    const res = await axios.post(
-      `${process.env.ERGOPAD_API_URL}/staking/${NETA_PROJECT_ID}/stake/`,
-      request,
-      { ...defaultOptions }
-    );
-
-    const unsignedTx = res.data;
-    const signedTx = await ergo.sign_tx(unsignedTx); // eslint-disable-line
-    await ergo.submit_tx(signedTx); // eslint-disable-line
+    await stakeNeta(request);
   };
 
   return {

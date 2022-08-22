@@ -19,3 +19,11 @@ export interface NautilusErgoApi {
   sign_tx_input: Function;
   submit_tx: Function;
 }
+
+export interface StakeNetaDTO {
+  amount: number;
+  wallet: string;
+  utxos: string[];
+  txFormat: string;
+  addresses: string[];
+}
