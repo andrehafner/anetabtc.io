@@ -64,21 +64,22 @@ const useWallet = () => {
     }
 
     const request = {
-      stakeBox: null, // TODO: change this
       amount,
-      address,
+      wallet: address,
       utxos: [],
       txFormat: ERGO_TX_FORMAT,
       addresses,
     };
 
     const res = await axios.post(
-      `${process.env.ERGOPAD_API_URL}/staking/${NETA_PROJECT_ID}/addstake/`,
+      `${process.env.ERGOPAD_API_URL}/staking/${NETA_PROJECT_ID}/stake/`,
       request,
       { ...defaultOptions }
     );
 
-    return res;
+    const unsignedTx = res.data;
+    const signedTx = await ergo.sign_tx(unsignedTx); // eslint-disable-line
+    await ergo.submit_tx(signedTx); // eslint-disable-line
   };
 
   return {
