@@ -11,6 +11,7 @@ body {
   height: 100vh;
   font-family: "Avenir Next Cyr Medium", sans-serif;
   font-weight: 100;
+  --gold-color: #ffd700;
 }
 
 #__next {
@@ -145,4 +146,17 @@ input:focus-within {
 
 .spinner {
   animation: spin 1s linear infinite;
+}
+
+.aneta-angel {
+  animation: pulse 2s cubic-bezier(0.34, 0.83, 0.78, 0.97) infinite;
+}
+
+@keyframes pulse {
+  0% {
+    filter: drop-shadow(0px 0px 0px rgb(255, 215, 0, 1));
+  }
+  100% {
+    filter: drop-shadow(0px 0px 30px rgb(255, 215, 0, 0));
+  }
 }

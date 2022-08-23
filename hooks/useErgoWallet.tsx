@@ -72,6 +72,7 @@ const useWallet = () => {
 
   return {
     getWalletAddress,
+    getWalletAddresses,
     getShortWalletAddress,
     enableWallet,
     stake,
