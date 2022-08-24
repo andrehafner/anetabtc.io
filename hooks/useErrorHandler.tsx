@@ -17,7 +17,6 @@ export default () => {
       /**
        * handle error from API/other sources
        */
-      console.log(e);
       dispatch(
         setErrorModalSetting({ text: e.message ?? ERROR_MESSAGE.UNKNOWN_ERROR })
       );
