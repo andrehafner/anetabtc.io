@@ -1,5 +1,4 @@
-import { NETA_PROJECT_ID } from "@entities/app";
-import { GetStakeNetaTxDTO } from "@entities/ergo";
+import { GetStakeNetaTxDTO, NETA_PROJECT_ID } from "@entities/ergo";
 import axios from "axios";
 
 const defaultOptions = {

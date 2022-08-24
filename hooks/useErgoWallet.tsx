@@ -1,12 +1,26 @@
-import { ERGO_TX_FORMAT, ErrorKey, NETA_PROJECT_ID } from "@entities/app";
-import { NautilusErgoApi } from "@entities/ergo";
+import { ErrorKey } from "@entities/app";
+import {
+  NautilusErgoApi,
+  ERGO_TX_FORMAT,
+  IErgoUTXO,
+  NETA_POLICY_ID,
+} from "@entities/ergo";
 import { RootState } from "@services/store";
 import { useSelector } from "react-redux";
 import { getStakeNetaTx } from "@services/ergo";
 import axios from "axios";
+import { useEffect, useMemo, useState } from "react";
 
 const useWallet = () => {
   const { walletApi } = useSelector((state: RootState) => state.ergo);
+  const [maxNeta, setMaxNeta] = useState(0);
+
+  useEffect(() => {
+    (async () => {
+      const max = await getNetaInWallet();
+      setMaxNeta(max);
+    })();
+  }, [walletApi]);
 
   const enableWallet = async (): Promise<NautilusErgoApi | null> => {
     /**
@@ -27,7 +41,6 @@ const useWallet = () => {
 
   const getWalletAddress = async (): Promise<string> => {
     if (walletApi == null) return "";
-    console.log(await walletApi.get_balance());
     const addrs = await walletApi.get_used_addresses();
     const addr = addrs[0];
     return addr;
@@ -39,9 +52,28 @@ const useWallet = () => {
     return addrs;
   };
 
-  const getWalletAsset = () => {
-    if (walletApi == null) return {};
-    console.log(walletApi);
+  const getNetaInWallet = async () => {
+    if (walletApi == null) return 0;
+    const utxos: IErgoUTXO[] = await walletApi.get_utxos();
+    const assets: Record<string, number> = {};
+    for (let utxo of utxos) {
+      utxo.assets.forEach((asset) => {
+        const assetId = asset.tokenId;
+        const assetAmount = Number(asset.amount);
+        if (assets[asset.tokenId]) {
+          /**
+           * if it is already in the object, add the amount
+           */
+          assets[assetId] += assetAmount;
+        } else {
+          /**
+           * if it is not, add new key
+           */
+          assets[assetId] = assetAmount;
+        }
+      });
+    }
+    return assets[NETA_POLICY_ID] ?? 0;
   };
 
   const getShortWalletAddress = async (): Promise<string> => {
@@ -87,9 +119,10 @@ const useWallet = () => {
     getWalletAddress,
     getWalletAddresses,
     getShortWalletAddress,
-    getWalletAsset,
+    getNetaInWallet,
     enableWallet,
     stake,
+    maxNeta,
   };
 };
 

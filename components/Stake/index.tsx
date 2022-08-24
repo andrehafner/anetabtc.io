@@ -26,8 +26,8 @@ const Stake = () => {
   const dispatch = useDispatch();
   const pathname = useRouter().pathname;
   const currency = pathname === "/ergo" ? Currency.NETA : Currency.cNETA;
-  const stakeOnCardano = useCardanoWallet().stake;
-  const stakeOnErgo = useErgoWallet().stake;
+  const { stake: stakeOnCardano } = useCardanoWallet();
+  const { stake: stakeOnErgo } = useErgoWallet();
   const { handleError } = useErrorHandler();
 
   const [stakingLength, setStakingLength] = useState<StakingLength>(
@@ -71,7 +71,7 @@ const Stake = () => {
       default:
         return <InitStaking />;
     }
-  }, [stakingState]);
+  }, [stakingState, stakingAmount]);
 
   const context = {
     ...STAKING_INFO[stakingLength],

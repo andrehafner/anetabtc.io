@@ -2,10 +2,32 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCoins } from "@fortawesome/free-solid-svg-icons";
 import React, { Ref, useContext, useState } from "react";
 import { StakeContext } from ".";
+import useErgoWallet from "@hooks/useErgoWallet";
+import { Currency } from "@entities/app";
+import useErrorHandler from "@hooks/useErrorHandler";
 
 const StakingInput = React.forwardRef(({}, ref) => {
   const { calcRewards, currency, apr } = useContext(StakeContext);
+  const { maxNeta } = useErgoWallet();
+  const { handleError } = useErrorHandler();
   const [amount, setAmount] = useState("");
+
+  const handleMaxAmount = async () => {
+    try {
+      switch (currency) {
+        case Currency.NETA:
+          setAmount(String(maxNeta));
+          break;
+        case Currency.cNETA:
+          setAmount("0");
+          break;
+        default:
+          return;
+      }
+    } catch (e) {
+      handleError(e);
+    }
+  };
 
   return (
     <div className="border border-theme p-5 rounded-lg flex flex-col gap-4">
@@ -23,7 +45,12 @@ const StakingInput = React.forwardRef(({}, ref) => {
           value={amount}
           onChange={(e) => setAmount(e.target.value)}
         ></input>
-        <button className="clickable button rounded-lg py-1 px-2.5">MAX</button>
+        <button
+          className="clickable button rounded-lg py-1 px-2.5"
+          onClick={handleMaxAmount}
+        >
+          Max
+        </button>
       </div>
       <div className="flex flex-row items-center gap-2">
         <FontAwesomeIcon className="h-4" icon={faCoins}></FontAwesomeIcon>

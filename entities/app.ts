@@ -1,9 +1,3 @@
-export const ERGO_TX_FORMAT = "eip-12";
-/**
- * temporary project ID because NETA is not in ergopad yet
- */
-export const NETA_PROJECT_ID = "paideia";
-
 export interface IAppState {
   theme: Theme;
   errorModalSetting: {
