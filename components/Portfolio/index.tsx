@@ -1,9 +1,3 @@
-import useWallet from "@hooks/useErgoWallet";
-import { getStakingPortfolio } from "@services/ergo";
-import { RootState } from "@services/store";
-import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 import Link from "next/link";
 import { Currency } from "@entities/app";
 import Spinner from "@components/Spinner";

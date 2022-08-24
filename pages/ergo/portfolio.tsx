@@ -2,19 +2,21 @@ import InitErgo from "@layouts/InitErgo";
 import Stake from "@components/Stake";
 import Header from "@components/Header";
 import Portfolio from "@components/Portfolio";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "@services/store";
 import useWallet from "@hooks/useErgoWallet";
 import { useRouter } from "next/router";
 import { getStakingPortfolio } from "@services/ergo";
 import { Currency } from "@entities/app";
+import useErrorHandler from "@hooks/useErrorHandler";
 
 export default () => {
   const { walletApi } = useSelector((state: RootState) => state.ergo);
   const { getWalletAddresses } = useWallet();
   const [portfolio, setPortfolio] = useState(0);
   const [loading, setLoading] = useState(false);
+  const { handleError } = useErrorHandler();
 
   /**
    * get parent pathname for back button to staking platform
@@ -26,19 +28,23 @@ export default () => {
     .filter((e) => e)
     .shift()}`;
 
+  const getPortfolio = useCallback(async () => {
+    try {
+      setLoading(true);
+      if (walletApi == null) return;
+      const addresses = await getWalletAddresses();
+      const stakedNeta = await getStakingPortfolio(addresses);
+      if (isNaN(stakedNeta)) return;
+      setPortfolio(stakedNeta);
+    } catch (e) {
+      handleError(e);
+    } finally {
+      setLoading(false);
+    }
+  }, [walletApi]);
+
   useEffect(() => {
-    (async () => {
-      try {
-        setLoading(true);
-        if (walletApi == null) return;
-        const addresses = await getWalletAddresses();
-        const stakedNeta = await getStakingPortfolio(addresses);
-        if (isNaN(stakedNeta)) return;
-        setPortfolio(stakedNeta);
-      } finally {
-        setLoading(false);
-      }
-    })();
+    getPortfolio();
   }, [walletApi]);
 
   return (
