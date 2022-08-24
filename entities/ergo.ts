@@ -20,7 +20,7 @@ export interface NautilusErgoApi {
   submit_tx: Function;
 }
 
-export interface StakeNetaDTO {
+export interface GetStakeNetaTxDTO {
   amount: number;
   wallet: string;
   utxos: string[];
