@@ -1,10 +1,4 @@
-export const NETA_POLICY_ID =
-  "a1f2d3519d5737ec4faf18ee38de856c418420b0f31871489f50ac5518297400";
 export const ERGO_TX_FORMAT = "eip-12";
-/**
- * temporary project ID because NETA is not in ergopad yet
- */
-export const NETA_PROJECT_ID = "paideia";
 
 export interface IErgoState {
   walletApi: NautilusErgoApi | null;

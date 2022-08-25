@@ -1,10 +1,5 @@
 import { ErrorKey } from "@entities/app";
-import {
-  NautilusErgoApi,
-  ERGO_TX_FORMAT,
-  IErgoUTXO,
-  NETA_POLICY_ID,
-} from "@entities/ergo";
+import { NautilusErgoApi, ERGO_TX_FORMAT, IErgoUTXO } from "@entities/ergo";
 import { RootState } from "@services/store";
 import { useSelector } from "react-redux";
 import { getStakeNetaTx } from "@services/ergo";
@@ -73,7 +68,9 @@ const useWallet = () => {
         }
       });
     }
-    return assets[NETA_POLICY_ID] ?? 0;
+    return process.env.NETA_POLICY_ID
+      ? assets[process.env.NETA_POLICY_ID] ?? 0
+      : 0;
   };
 
   const getShortWalletAddress = async (): Promise<string> => {

@@ -1,4 +1,4 @@
-import { GetStakeNetaTxDTO, NETA_PROJECT_ID } from "@entities/ergo";
+import { GetStakeNetaTxDTO } from "@entities/ergo";
 import axios from "axios";
 
 const defaultOptions = {
@@ -9,7 +9,7 @@ const defaultOptions = {
 
 export const getStakeNetaTx = async (request: GetStakeNetaTxDTO) => {
   const res = await axios.post(
-    `${process.env.ERGOPAD_API_URL}/staking/${NETA_PROJECT_ID}/stake/`,
+    `${process.env.ERGOPAD_API_URL}/staking/${process.env.NETA_PROJECT_ID}/stake/`,
     request,
     { ...defaultOptions }
   );
@@ -21,7 +21,7 @@ export const getStakingPortfolio = async (
   addresses: string[]
 ): Promise<number> => {
   const res = await axios.post(
-    `${process.env.ERGOPAD_API_URL}/staking/${NETA_PROJECT_ID}/staked/`,
+    `${process.env.ERGOPAD_API_URL}/staking/${process.env.NETA_PROJECT_ID}/staked/`,
     { addresses },
     { ...defaultOptions }
   );
