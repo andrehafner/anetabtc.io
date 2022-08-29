@@ -1,0 +1,1 @@
+# AnetaBTC Staking Platform
