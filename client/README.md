@@ -1,4 +1,15 @@
-# Guideline
+# How to start client on local
+
+1. `npm install`
+2. `npm run dev`
+3. accessible on `http://localhost:3000`
+
+# How to start client for prod
+
+1. `npm install`
+2. `npm start`
+
+# Client development guideline
 
 Small Components:
 - gap (for flex): `gap-2`
