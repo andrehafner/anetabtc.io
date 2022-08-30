@@ -22,12 +22,6 @@ const ConfirmStaking = () => {
             {stakingAmount} {currency}
           </div>
         </div>
-        <div className="flex flex-row items-center">
-          Staking Rewards
-          <div className="ml-auto">
-            {calcRewards(stakingAmount, apr)} {currency}
-          </div>
-        </div>
       </div>
       <div className="flex flex-row gap-2">
         <button

@@ -1,6 +1,5 @@
 import React from "react";
 import Head from "next/head";
-import Header from "@components/Header";
 import { useSelector } from "react-redux";
 import { RootState } from "@services/store";
 import ErrorModal from "@components/Modal/ErrorModal";
@@ -13,7 +12,7 @@ const Layout = ({ children }: { children: JSX.Element }) => {
       <ErrorModal></ErrorModal>
       <Head>
         <link rel="icon" href="/favicon.ico"></link>
-        <title>anetBTC Staking Platform</title>
+        <title>anetaBTC Staking Platform</title>
       </Head>
       {children}
     </div>
