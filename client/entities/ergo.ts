@@ -9,6 +9,13 @@ export interface IAssetInUTXO {
   amount: string;
 }
 
+export interface INetaStat {
+  totalStaked: number;
+  numberOfStakers: number;
+  cycleStart: number;
+  apr: number;
+}
+
 export interface IErgoUTXO {
   boxId: string;
   transactionId: string;

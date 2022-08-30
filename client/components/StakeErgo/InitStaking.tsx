@@ -4,15 +4,14 @@ import { useRouter } from "next/router";
 import { useContext, useRef } from "react";
 import { StakeContext } from ".";
 import StakingInput from "./StakingInput";
-import StakingLengthSelect from "./StakingLengthSelect";
+import StakingLengthSelect from "../StakeCardano/StakingLengthSelect";
 
 const InitStaking = () => {
   const inputRef = useRef<HTMLInputElement>(null);
   const stakeContext = useContext(StakeContext);
   const router = useRouter();
   const pathname = router.pathname;
-  const { apr, setStakingState, setStakingAmount, setStakingLength } =
-    stakeContext;
+  const { setStakingState, setStakingAmount } = stakeContext;
 
   const handleStake = () => {
     if (inputRef.current == null) return;
@@ -24,10 +23,6 @@ const InitStaking = () => {
 
   return (
     <div className="component p-5 w-full rounded-2xl flex flex-col gap-4">
-      {/* <div className="w-full flex flex-row items-center">
-        <StakingLengthSelect></StakingLengthSelect>
-        <div className="ml-auto text-agreen">APR {apr}%</div>
-      </div> */}
       <StakingInput ref={inputRef}></StakingInput>
       <div className="flex items-center gap-4">
         <button

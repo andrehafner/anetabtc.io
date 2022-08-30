@@ -1,21 +1,18 @@
-import {
-  Currency,
-  StakingLength,
-  StakingState,
-  STAKING_INFO,
-} from "@entities/app";
-import { createContext, useCallback, useState } from "react";
-import ConfirmStaking from "./ConfirmStaking";
-import InitStaking from "./InitStaking";
-import LoadingStaking from "./LoadingStaking";
-import SuccessStaking from "./SuccessStaking";
-import FailureStaking from "./FailureStaking";
-import useCardanoWallet from "@hooks/useCardanoWallet";
-import useErgoWallet from "@hooks/useErgoWallet";
 import { useRouter } from "next/router";
 import { useDispatch } from "react-redux";
-import { setErrorModalSetting } from "@reducers/app";
+import { createContext, useCallback, useEffect, useState } from "react";
+
+import ConfirmStaking from "./ConfirmStaking";
+import InitStaking from "./InitStaking";
+
+import LoadingStaking from "@components/common/LoadingStaking";
+import SuccessStaking from "@components/common/SuccessStaking";
+import FailureStaking from "@components/common/FailureStaking";
+import { Currency, StakingState } from "@entities/app";
 import useErrorHandler from "@hooks/useErrorHandler";
+import { getStakedNetaStats } from "@services/ergo";
+import useCardanoWallet from "@hooks/useCardanoWallet";
+import useErgoWallet from "@hooks/useErgoWallet";
 
 export const StakeContext = createContext<any>(null);
 
@@ -23,17 +20,14 @@ const Stake = () => {
   /**
    * get currency for staking according to network
    */
-  const dispatch = useDispatch();
   const pathname = useRouter().pathname;
   const currency = pathname === "/ergo" ? Currency.NETA : Currency.cNETA;
   const { stake: stakeOnCardano } = useCardanoWallet();
   const { stake: stakeOnErgo } = useErgoWallet();
   const { handleError } = useErrorHandler();
 
-  const [stakingLength, setStakingLength] = useState<StakingLength>(
-    StakingLength.sixMonth
-  );
-  const [stakingAmount, setStakingAmount] = useState<number>(0);
+  const [apr, setApr] = useState(0);
+  const [stakingAmount, setStakingAmount] = useState(0);
   const [stakingState, setStakingState] = useState<StakingState>(
     StakingState.init
   );
@@ -57,6 +51,15 @@ const Stake = () => {
     }
   };
 
+  const init = async () => {
+    const stats = await getStakedNetaStats();
+    setApr(stats.apr);
+  };
+
+  useEffect(() => {
+    init();
+  }, []);
+
   const RenderContentBox = useCallback(() => {
     switch (stakingState) {
       case StakingState.loading:
@@ -73,15 +76,18 @@ const Stake = () => {
     }
   }, [stakingState, stakingAmount]);
 
+  const calcRewards = (stakingAmount: number, apr: number) => {
+    return ((stakingAmount * apr) / 100).toFixed(2);
+  };
+
   const context = {
-    ...STAKING_INFO[stakingLength],
-    stakingAmount: stakingAmount,
-    stakingLength: stakingLength,
+    stakingAmount,
+    apr,
     currency,
     setStakingState,
-    setStakingLength,
     setStakingAmount,
     submitStake,
+    calcRewards,
   };
 
   return (

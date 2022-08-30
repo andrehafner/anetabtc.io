@@ -4,7 +4,7 @@ import { Blockchain, StakingLength, STAKING_INFO } from "@entities/app";
 import { useContext, useState } from "react";
 import { faAngleDown, faAngleUp } from "@fortawesome/free-solid-svg-icons";
 import useClickOutside from "@hooks/useClickOutside";
-import { StakeContext } from ".";
+import { StakeContext } from "../StakeErgo";
 
 const StakingLengthSelect = () => {
   const { stakingLength, text, setStakingLength } = useContext(StakeContext);

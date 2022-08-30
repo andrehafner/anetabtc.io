@@ -2,7 +2,7 @@ import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { StakingLength, StakingState } from "@entities/app";
 import { useContext } from "react";
-import { StakeContext } from ".";
+import { StakeContext } from "../StakeErgo";
 
 const FailureStaking = () => {
   const { setStakingState } = useContext(StakeContext);

@@ -33,7 +33,7 @@ const Header: React.FC = () => {
             src={`/logo-theme-${theme}.png`}
           ></img>
         </Link>
-        <TVL />
+        {/* <TVL /> */}
       </div>
       <div className="h-8 md:h-full gap-2 flex flex-row-reverse items-center gap-2 md:ml-auto">
         <ThemeSwitch></ThemeSwitch>

@@ -1,4 +1,4 @@
-import { GetStakeNetaTxDTO } from "@entities/ergo";
+import { GetStakeNetaTxDTO, INetaStat } from "@entities/ergo";
 import axios from "axios";
 
 const defaultOptions = {
@@ -26,4 +26,17 @@ export const getStakingPortfolio = async (
     { ...defaultOptions }
   );
   return res.data.totalStaked;
+};
+
+export const getStakedNetaStats = async (): Promise<INetaStat> => {
+  const { data } = await axios.get(
+    `${process.env.ERGOPAD_API_URL}/staking/${process.env.NETA_PROJECT_ID}/status/`
+  );
+  const stats: INetaStat = {
+    cycleStart: data["Cycle start"] ?? 0,
+    apr: data["APY"] ?? 0,
+    numberOfStakers: data["Staking boxes"] ?? 0,
+    totalStaked: data["Total amount staked"] ?? 0,
+  };
+  return stats;
 };

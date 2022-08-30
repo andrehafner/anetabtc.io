@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCoins } from "@fortawesome/free-solid-svg-icons";
-import React, { Ref, useContext, useState } from "react";
+import React, { Ref, useContext, useEffect, useState } from "react";
 import { StakeContext } from ".";
 import useErgoWallet from "@hooks/useErgoWallet";
 import { Currency } from "@entities/app";
@@ -13,21 +13,11 @@ const StakingInput = React.forwardRef(({}, ref) => {
   const [amount, setAmount] = useState("");
 
   const handleMaxAmount = async () => {
-    try {
-      switch (currency) {
-        case Currency.NETA:
-          setAmount(String(maxNeta));
-          break;
-        case Currency.cNETA:
-          setAmount("0");
-          break;
-        default:
-          return;
-      }
-    } catch (e) {
-      handleError(e);
-    }
+    const maxNetaTrueAmount = maxNeta / Math.pow(10, 6);
+    setAmount(String(maxNetaTrueAmount));
   };
+
+  useEffect(() => {});
 
   return (
     <div className="border border-theme p-5 rounded-lg flex flex-col gap-4">
@@ -56,7 +46,8 @@ const StakingInput = React.forwardRef(({}, ref) => {
         <FontAwesomeIcon className="h-4" icon={faCoins}></FontAwesomeIcon>
         Staking Rewards
         <div className="ml-auto">
-          {isNaN(Number(amount)) ? 0 : calcRewards(Number(amount))} {currency}
+          {isNaN(Number(amount)) ? 0 : calcRewards(Number(amount), apr)}{" "}
+          {currency}
         </div>
       </div>
     </div>

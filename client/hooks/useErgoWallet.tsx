@@ -3,8 +3,7 @@ import { NautilusErgoApi, ERGO_TX_FORMAT, IErgoUTXO } from "@entities/ergo";
 import { RootState } from "@services/store";
 import { useSelector } from "react-redux";
 import { getStakeNetaTx } from "@services/ergo";
-import axios from "axios";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 
 const useWallet = () => {
   const { walletApi } = useSelector((state: RootState) => state.ergo);

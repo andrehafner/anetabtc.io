@@ -6,6 +6,7 @@ import { ErrorKey, ERROR_MESSAGE, LocalStorageKey, Theme } from "@entities/app";
 import { ErgoWalletName } from "@entities/ergo";
 import { setErrorModalSetting, setTheme } from "@reducers/app";
 import useErrorHandler from "@hooks/useErrorHandler";
+import { getStakedNetaStats } from "@services/ergo";
 
 const InitErgo = ({ children }: { children: JSX.Element }) => {
   const { enableWallet } = useErgoWallet();
@@ -27,6 +28,7 @@ const InitErgo = ({ children }: { children: JSX.Element }) => {
            * for now, we only support nautilus
            */
           const walletApi = await enableWallet();
+          await getStakedNetaStats();
           dispatch(setWallet({ walletApi }));
         } catch (e: any) {
           handleError(e);
