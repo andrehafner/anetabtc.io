@@ -13,13 +13,9 @@ const InitCardano = ({ children }: { children: JSX.Element }) => {
 
   useEffect(() => {
     (async () => {
-      const savedTheme = localStorage.getItem(LocalStorageKey.theme);
       const savedWalletName = localStorage.getItem(
         LocalStorageKey.walletNameCardano
       ) as CardanoWalletName;
-      if (savedTheme) {
-        dispatch(setTheme(savedTheme as Theme));
-      }
       if (savedWalletName && savedWalletName in CardanoWalletName) {
         try {
           const { wallet, walletApi } = await enableWallet(savedWalletName);
