@@ -42,14 +42,6 @@ const StakingInput = React.forwardRef(({}, ref) => {
           Max
         </button>
       </div>
-      <div className="flex flex-row items-center gap-2">
-        <FontAwesomeIcon className="h-4" icon={faCoins}></FontAwesomeIcon>
-        Staking Rewards
-        <div className="ml-auto">
-          {isNaN(Number(amount)) ? 0 : calcRewards(Number(amount), apr)}{" "}
-          {currency}
-        </div>
-      </div>
     </div>
   );
 });
