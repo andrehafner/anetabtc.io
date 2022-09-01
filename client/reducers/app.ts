@@ -1,8 +1,9 @@
-import { IAppState, LocalStorageKey, Theme } from "@entities/app";
+import { IAppState, LocalStorageKey, Pages, Theme } from "@entities/app";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 const initialState: IAppState = {
   theme: Theme.dark,
+  page: Pages.Stake,
   errorModalSetting: {
     text: "",
     open: false,
@@ -20,6 +21,9 @@ const reducers = {
       state.theme = Theme.dark;
       localStorage.setItem(LocalStorageKey.theme, Theme.dark);
     }
+  },
+  setPage: (state: any, action: PayloadAction<Pages>) => {
+    state.page = action.payload;
   },
   setTheme: (state: any, action: PayloadAction<Theme>) => {
     state.theme = action.payload;
@@ -42,5 +46,5 @@ const app = createSlice({
   reducers,
 });
 
-export const { toggleTheme, setTheme, setErrorModalSetting } = app.actions;
+export const { toggleTheme, setTheme, setErrorModalSetting, setPage } = app.actions;
 export default app.reducer;

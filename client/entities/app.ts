@@ -1,5 +1,10 @@
+export enum Pages {
+  Dashboard,
+  Stake
+}
 export interface IAppState {
   theme: Theme;
+  page: Pages;
   errorModalSetting: {
     open: boolean;
     text: string;

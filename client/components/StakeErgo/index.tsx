@@ -13,6 +13,7 @@ import useErrorHandler from "@hooks/useErrorHandler";
 import { getStakedNetaStats } from "@services/ergo";
 import useCardanoWallet from "@hooks/useCardanoWallet";
 import useErgoWallet from "@hooks/useErgoWallet";
+import Dashboard from "@components/StakeErgo/Dashboard";
 
 export const StakeContext = createContext<any>(null);
 
@@ -97,7 +98,8 @@ const Stake = () => {
           {/* Title */}
           <span className="w-fit text-3xl font-bold">{currency} Staking</span>
           {/* Staking box */}
-          <RenderContentBox></RenderContentBox>
+          {/* <RenderContentBox></RenderContentBox>*/}
+          <Dashboard></Dashboard>
         </div>
       </div>
     </StakeContext.Provider>

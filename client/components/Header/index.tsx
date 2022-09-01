@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import React from "react";
 import { useSelector } from "react-redux";
 import ChainSwitch from "./ChainSwitch";
+import Dashboard from "./Dashboard";
 import ThemeSwitch from "./ThemeSwitch";
 import TVL from "./TVL";
 import WalletCardano from "./WalletCardano";
@@ -26,13 +27,14 @@ const Header: React.FC = () => {
 
   return (
     <div className="md:h-20 p-6 flex flex-col gap-4 md:gap-0 md:flex-row items-center">
-      <div className="h-8 md:h-full gap-2 flex flex-row items-center">
+      <div className="h-8 md:h-full gap-4 flex flex-row items-center">
         <Link href="/">
           <img
             className="h-full cursor-pointer"
             src={`/logo-theme-${theme}.png`}
           ></img>
         </Link>
+        <Dashboard />
         {/* <TVL /> */}
       </div>
       <div className="h-8 md:h-full gap-2 flex flex-row-reverse items-center gap-2 md:ml-auto">

@@ -135,6 +135,26 @@ input:focus-within {
   background: var(--component-bg);
 }
 
+.componentunselected {
+  background: var(--component-bg);
+  cursor: pointer;
+}
+
+.componentselected {
+  background: var(--clickable-border-color-less);
+  cursor: default;
+}
+
+.rectangle {
+  background: linear-gradient(142.67deg, #3F4C8F -1.42%, #2E5769 89.44%);
+  box-shadow: 0px 0px 50px rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  width: 300px;
+  height: 115px;
+  display: flex;
+  flex-direction: column;
+}
+
 @keyframes spin {
   0% {
     transform: rotateZ(0deg);
