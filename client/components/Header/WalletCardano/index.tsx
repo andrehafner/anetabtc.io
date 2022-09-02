@@ -54,34 +54,33 @@ const WalletCardano = () => {
     }
   };
 
-  // return (
-  //   <>
-  //     <div className="relative h-full">
-  //       <div
-  //         className="clickable component h-full px-2.5 rounded-lg flex items-center"
-  //         onClick={handleOnClick}
-  //       >
-  //         <ConnectionStatus
-  //           walletConnectionStatus={walletConnectionStatus}
-  //           wallet={wallet}
-  //           walletApi={walletApi}
-  //         />
-  //       </div>
-  //       {showDisconnectButton ? (
-  //         <Disconnect
-  //           closeButton={() => setShowDisconnectButton(false)}
-  //         ></Disconnect>
-  //       ) : null}
-  //     </div>
+  return (
+    <>
+      <div className="relative h-full">
+        <div
+          className="clickable component h-full px-2.5 rounded-lg flex items-center"
+          onClick={handleOnClick}
+        >
+          <ConnectionStatus
+            walletConnectionStatus={walletConnectionStatus}
+            wallet={wallet}
+            walletApi={walletApi}
+          />
+        </div>
+        {showDisconnectButton ? (
+          <Disconnect
+            closeButton={() => setShowDisconnectButton(false)}
+          ></Disconnect>
+        ) : null}
+      </div>
 
-  //     {openWalletSelection ? (
-  //       <Modal closeModal={() => setOpenWalletSelection(false)}>
-  //         <WalletList connectWallet={connectWallet}></WalletList>
-  //       </Modal>
-  //     ) : null}
-  //   </>
-  // );
-  return null;
+      {openWalletSelection ? (
+        <Modal closeModal={() => setOpenWalletSelection(false)}>
+          <WalletList connectWallet={connectWallet}></WalletList>
+        </Modal>
+      ) : null}
+    </>
+  );
 };
 
 export default WalletCardano;

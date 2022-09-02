@@ -1,17 +1,14 @@
-import ComingSoon from "@components/ComingSoon";
+import StakeCardano from "@components/StakeCardano";
 import Header from "@components/Header";
+import InitCardano from "@layouts/InitCardano";
 
 export default function Cardano() {
   return (
-    // <InitCardano>
-    //   <>
-    //     <Header></Header>
-    //     <ComingSoon></ComingSoon>
-    //   </>
-    // </InitCardano>
-    <>
-      <Header></Header>
-      <ComingSoon></ComingSoon>
-    </>
+    <InitCardano>
+      <>
+        <Header></Header>
+        <StakeCardano></StakeCardano>
+      </>
+    </InitCardano>
   );
 }

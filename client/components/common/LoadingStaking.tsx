@@ -1,5 +1,4 @@
 import Spinner from "@components/Spinner";
-import { StakingLength, StakingState } from "@entities/app";
 
 const LoadingStaking = () => {
   return (

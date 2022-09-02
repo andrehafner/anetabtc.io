@@ -1,4 +1,4 @@
-import { createContext, useCallback, useEffect, useState } from "react";
+import { createContext, useCallback, useState } from "react";
 
 import ConfirmStaking from "./ConfirmStaking";
 import InitStaking from "./InitStaking";
@@ -8,20 +8,26 @@ import SuccessStaking from "@components/common/SuccessStaking";
 import FailureStaking from "@components/common/FailureStaking";
 import { Currency, StakingState } from "@entities/app";
 import useErrorHandler from "@hooks/useErrorHandler";
-import { getStakedNetaStats } from "@services/ergo";
-import useErgoWallet from "@hooks/useErgoWallet";
+import useCardanoWallet from "@hooks/useCardanoWallet";
+import { IcnetaStakingContext, StakingLength } from "@entities/cardano";
 
-export const StakeContext = createContext<any>(null);
+export const CnetaStakingContext = createContext<IcnetaStakingContext>({
+  stakingAmount: 0,
+  stakingLength: StakingLength.sixMonth,
+  setStakingLength: () => {},
+  setStakingState: () => {},
+  setStakingAmount: () => {},
+  submitStake: () => {},
+});
 
 const Stake = () => {
-  /**
-   * get currency for staking according to network
-   */
-  const currency = Currency.NETA;
-  const { stake } = useErgoWallet();
+  const currency = Currency.cNETA;
+  const { stake } = useCardanoWallet();
   const { handleError } = useErrorHandler();
 
-  const [apr, setApr] = useState(0);
+  const [stakingLength, setStakingLength] = useState<StakingLength>(
+    StakingLength.sixMonth
+  );
   const [stakingAmount, setStakingAmount] = useState(0);
   const [stakingState, setStakingState] = useState<StakingState>(
     StakingState.init
@@ -29,22 +35,13 @@ const Stake = () => {
 
   const submitStake = async () => {
     try {
-      await stake(stakingAmount);
+      await stake();
       setStakingState(StakingState.success);
     } catch (e) {
       handleError(e);
       setStakingState(StakingState.failure);
     }
   };
-
-  const init = async () => {
-    const stats = await getStakedNetaStats();
-    setApr(stats.apr);
-  };
-
-  useEffect(() => {
-    init();
-  }, []);
 
   const RenderContentBox = useCallback(() => {
     switch (stakingState) {
@@ -62,22 +59,17 @@ const Stake = () => {
     }
   }, [stakingState, stakingAmount]);
 
-  const calcRewards = (stakingAmount: number, apr: number) => {
-    return ((stakingAmount * apr) / 100).toFixed(2);
-  };
-
   const context = {
+    stakingLength,
     stakingAmount,
-    apr,
-    currency,
     setStakingState,
     setStakingAmount,
     submitStake,
-    calcRewards,
+    setStakingLength,
   };
 
   return (
-    <StakeContext.Provider value={context}>
+    <CnetaStakingContext.Provider value={context}>
       <div className="w-full p-5 flex justify-center">
         <div className="max-w-lg w-full gap-4 flex flex-col items-center justify-center">
           {/* Title */}
@@ -86,7 +78,7 @@ const Stake = () => {
           <RenderContentBox></RenderContentBox>
         </div>
       </div>
-    </StakeContext.Provider>
+    </CnetaStakingContext.Provider>
   );
 };
 
