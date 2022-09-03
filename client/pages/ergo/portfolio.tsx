@@ -10,13 +10,16 @@ import { getStakedNetaStats, getStakingPortfolio } from "@services/ergo";
 import { Currency } from "@entities/app";
 import StakingStatistic from "@components/StakingStatistic/neta";
 import useErrorHandler from "@hooks/useErrorHandler";
-import { INetaStat } from "@entities/ergo";
+import { INetaPortfolio, INetaStat } from "@entities/ergo";
 import Loading from "@components/Loading";
 
 export default () => {
   const { walletApi } = useSelector((state: RootState) => state.ergo);
   const { getWalletAddresses } = useWallet();
-  const [portfolio, setPortfolio] = useState(0);
+  const [portfolio, setPortfolio] = useState<INetaPortfolio>({
+    totalStaked: 0,
+    addresses: {},
+  });
   const [loading, setLoading] = useState(true);
   const { handleError } = useErrorHandler();
   const [stats, setStats] = useState<Partial<INetaStat>>({
@@ -39,13 +42,11 @@ export default () => {
     try {
       if (walletApi == null) return;
       const addresses = await getWalletAddresses();
-      const [stakedNeta, stats] = await Promise.all([
+      const [porto, stats] = await Promise.all([
         getStakingPortfolio(addresses),
         getStakedNetaStats(),
       ]);
-      if (!isNaN(stakedNeta)) {
-        setPortfolio(stakedNeta);
-      }
+      setPortfolio(porto);
       if (stats != null) {
         setStats(stats);
       }
@@ -68,12 +69,7 @@ export default () => {
           <Loading></Loading>
         ) : (
           <>
-            <Portfolio
-              loading={loading}
-              currency={Currency.NETA}
-              parentPath={parentPath}
-              portfolio={portfolio}
-            ></Portfolio>
+            <Portfolio portfolio={portfolio}></Portfolio>
             <StakingStatistic stats={stats}></StakingStatistic>{" "}
           </>
         )}

@@ -52,3 +52,19 @@ export interface GetStakeNetaTxDTO {
   txFormat: string;
   addresses: string[];
 }
+
+export interface INetaStakeBox {
+  boxId: string;
+  stakeKeyId: string;
+  stakeAmount: number;
+}
+
+export interface INetaAddressPortfolio {
+  totalStaked: number;
+  stakeBoxes: INetaStakeBox[];
+}
+
+export interface INetaPortfolio {
+  totalStaked: number;
+  addresses: Record<string, INetaAddressPortfolio>;
+}
