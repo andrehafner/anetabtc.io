@@ -1,23 +1,24 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCoins } from "@fortawesome/free-solid-svg-icons";
-import React, { Ref, useContext, useEffect, useState } from "react";
+import { RootState } from "@services/store";
+import { useSelector } from "react-redux";
+import React, { useContext, useEffect, useState } from "react";
 import { StakeContext } from ".";
 import useErgoWallet from "@hooks/useErgoWallet";
-import { Currency } from "@entities/app";
-import useErrorHandler from "@hooks/useErrorHandler";
 
 const StakingInput = React.forwardRef(({}, ref) => {
-  const { calcRewards, currency, apr } = useContext(StakeContext);
-  const { maxNeta } = useErgoWallet();
-  const { handleError } = useErrorHandler();
+  const { apr } = useContext(StakeContext);
+  const { walletApi } = useSelector((state: RootState) => state.ergo);
+  const { getNetaInWallet: getNetaInWalletAPI } = useErgoWallet();
   const [amount, setAmount] = useState("");
+  const [maxAmount, setMaxAmount] = useState("");
 
-  const handleMaxAmount = async () => {
-    const maxNetaTrueAmount = maxNeta / Math.pow(10, 6);
-    setAmount(String(maxNetaTrueAmount));
+  const getNetaInWallet = async () => {
+    const maxNeta = await getNetaInWalletAPI();
+    setMaxAmount(maxNeta > 0 ? String(maxNeta / Math.pow(10, 6)) : "");
   };
 
-  useEffect(() => {});
+  useEffect(() => {
+    getNetaInWallet();
+  }, [walletApi]);
 
   return (
     <div className="border border-theme p-5 rounded-lg flex flex-col gap-4">
@@ -37,7 +38,7 @@ const StakingInput = React.forwardRef(({}, ref) => {
         ></input>
         <button
           className="clickable button rounded-lg py-1 px-2.5"
-          onClick={handleMaxAmount}
+          onClick={() => setAmount(maxAmount)}
         >
           Max
         </button>

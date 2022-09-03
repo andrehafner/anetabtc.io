@@ -7,14 +7,6 @@ import { useEffect, useState } from "react";
 
 const useWallet = () => {
   const { walletApi } = useSelector((state: RootState) => state.ergo);
-  const [maxNeta, setMaxNeta] = useState(0);
-
-  useEffect(() => {
-    (async () => {
-      const max = await getNetaInWallet();
-      setMaxNeta(max);
-    })();
-  }, [walletApi]);
 
   const enableWallet = async (): Promise<NautilusErgoApi | null> => {
     /**
@@ -118,7 +110,6 @@ const useWallet = () => {
     getNetaInWallet,
     enableWallet,
     stake,
-    maxNeta,
   };
 };
 

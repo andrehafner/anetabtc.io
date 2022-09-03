@@ -54,7 +54,7 @@ export default () => {
     } catch (e) {
       handleError(e);
       setLoading(false);
-    } 
+    }
   };
 
   useEffect(() => {

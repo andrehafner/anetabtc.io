@@ -38,8 +38,12 @@ const Stake = () => {
   };
 
   const init = async () => {
-    const stats = await getStakedNetaStats();
-    setApr(stats.apr);
+    try {
+      const stats = await getStakedNetaStats();
+      setApr(stats.apr);
+    } catch (e) {
+      handleError(e);
+    }
   };
 
   useEffect(() => {
