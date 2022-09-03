@@ -50,11 +50,11 @@ export default () => {
       if (stats != null) {
         setStats(stats);
       }
+      setLoading(false);
     } catch (e) {
       handleError(e);
-    } finally {
       setLoading(false);
-    }
+    } 
   };
 
   useEffect(() => {
