@@ -1,3 +1,4 @@
+import { Blockchain } from "@entities/app";
 import { faPowerOff } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import useClickOutside from "@hooks/useClickOutside";
@@ -46,7 +47,7 @@ const ChainSwitch = () => {
 
   return (
     <div className="h-full relative" ref={ref}>
-      {pathname === "/cardano" ? (
+      {pathname.includes(Blockchain.cardano) ? (
         <div
           className="relative clickable component h-full px-2.5 rounded-lg flex items-center gap-2"
           onClick={() => setShowDropdown(!showDropdown)}
@@ -55,7 +56,7 @@ const ChainSwitch = () => {
         </div>
       ) : null}
 
-      {pathname === "/ergo" ? (
+      {pathname.includes(Blockchain.ergo) ? (
         <div
           className="relative clickable component h-full px-2.5 rounded-lg flex items-center gap-2"
           onClick={() => setShowDropdown(!showDropdown)}

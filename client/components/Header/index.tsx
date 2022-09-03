@@ -1,3 +1,4 @@
+import { Blockchain } from "@entities/app";
 import { RootState } from "@services/store";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -14,10 +15,10 @@ const Header: React.FC = () => {
   const theme = useSelector((state: RootState) => state.app.theme);
 
   const RenderWallet = () => {
-    switch (pathname) {
-      case "/ergo":
+    switch (true) {
+      case pathname.includes(Blockchain.ergo):
         return <WalletErgo></WalletErgo>;
-      case "/cardano":
+      case pathname.includes(Blockchain.cardano):
         return <WalletCardano></WalletCardano>;
       default:
         return null;
