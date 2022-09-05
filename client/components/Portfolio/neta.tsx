@@ -3,10 +3,7 @@ import Link from "next/link";
 import NetaStakeBox from "./NetaStakeBox";
 
 import { Blockchain, Currency } from "@entities/app";
-import {
-  INetaPortfolio,
-  INetaStakeBox,
-} from "@entities/ergo";
+import { INetaPortfolio, INetaStakeBox } from "@entities/ergo";
 
 interface Props {
   portfolio: INetaPortfolio;
