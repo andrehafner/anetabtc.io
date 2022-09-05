@@ -1,6 +1,8 @@
-import { StakingLength, StakingState } from "@entities/app";
 import { useContext } from "react";
+
 import { StakeContext } from ".";
+
+import { StakingState } from "@entities/app";
 
 const ConfirmStaking = () => {
   const {
