@@ -82,8 +82,17 @@ const useWallet = () => {
 
   const stake = async (amount: number) => {
     /**
-     * since neta/cneta doesnt have decimals, we don't need to convert the amount
+     * validate amount
+     * NETA have 6 decimal places
      */
+    const maxNeta = await getNetaInWallet();
+    if (amount > maxNeta / Math.pow(10, 6)) {
+      throw Error("You don't have enough NETA");
+    }
+
+    if (amount < 10) {
+      throw Error("You need to stake at least 10 NETA");
+    }
 
     const address = await getWalletAddress();
     const addresses = await getWalletAddresses();
