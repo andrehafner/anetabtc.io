@@ -1,9 +1,7 @@
-import { ERGO_TX_FORMAT, INetaStakeBox } from "@entities/ergo";
+import { INetaStakeBox } from "@entities/ergo";
 import { shorten } from "@/utils";
 import { Currency } from "@entities/app";
-import { unstakeNeta } from "@services/ergo";
 import useErrorHandler from "@hooks/useErrorHandler";
-import { IUnstakeNeta } from "@services/ergo.dto";
 import useWallet from "@hooks/useErgoWallet";
 
 interface Props {
@@ -12,22 +10,11 @@ interface Props {
 
 export default ({ stakeBox }: Props) => {
   const { handleError } = useErrorHandler();
-  const { getWalletAddress, getWalletAddresses } = useWallet();
+  const { unstake } = useWallet();
 
-  const unstake = async () => {
+  const handleUnstake = async () => {
     try {
-      const body: IUnstakeNeta = {
-        address: await getWalletAddress(),
-        addresses: await getWalletAddresses(),
-        utxos: [],
-        txFormat: ERGO_TX_FORMAT,
-        amount: stakeBox.stakeAmount,
-        stakeBox: stakeBox.boxId,
-      };
-      console.log(await unstakeNeta(body));
-      /**
-       * todo: sign tx
-       */
+      await unstake(stakeBox.stakeAmount, stakeBox.boxId);
     } catch (e) {
       handleError(e);
     }
@@ -41,7 +28,7 @@ export default ({ stakeBox }: Props) => {
       </div>
       <button
         className="clickable button rounded-lg py-1 px-2.5 button-danger w-fit"
-        onClick={unstake}
+        onClick={handleUnstake}
       >
         Unstake
       </button>

@@ -2,8 +2,10 @@ import { ErrorKey } from "@entities/app";
 import { NautilusErgoApi, ERGO_TX_FORMAT, IErgoUTXO } from "@entities/ergo";
 import { RootState } from "@services/store";
 import { useSelector } from "react-redux";
-import { getStakeNetaTx } from "@services/ergo";
+import { getStakeNetaTx, unstakeNeta } from "@services/ergo";
 import { useEffect, useState } from "react";
+import { shorten } from "@/utils";
+import { IUnstakeNeta } from "@services/ergo.dto";
 
 const useWallet = () => {
   const { walletApi } = useSelector((state: RootState) => state.ergo);
@@ -67,7 +69,7 @@ const useWallet = () => {
   const getShortWalletAddress = async (): Promise<string> => {
     const addr = await getWalletAddress();
     if (!addr.length) return "";
-    return addr.slice(0, 6) + "..." + addr.slice(addr.length - 3);
+    return shorten(addr, 8);
   };
 
   const signTx = async (unsignedTx: string) => {
@@ -103,6 +105,19 @@ const useWallet = () => {
     await signTx(unsignedTx);
   };
 
+  const unstake = async (stakeAmount: number, boxId: string) => {
+    const body: IUnstakeNeta = {
+      address: await getWalletAddress(),
+      addresses: await getWalletAddresses(),
+      utxos: [],
+      txFormat: ERGO_TX_FORMAT,
+      amount: stakeAmount,
+      stakeBox: boxId,
+    };
+    const unsignedTx = await unstakeNeta(body);
+    await signTx(unsignedTx);
+  };
+
   return {
     getWalletAddress,
     getWalletAddresses,
@@ -110,6 +125,7 @@ const useWallet = () => {
     getNetaInWallet,
     enableWallet,
     stake,
+    unstake,
   };
 };
 

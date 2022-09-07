@@ -48,5 +48,5 @@ export const unstakeNeta = async (body: IUnstakeNeta) => {
     body,
     defaultOptions
   );
-  return res;
+  return res.data;
 };
