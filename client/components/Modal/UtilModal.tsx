@@ -1,20 +1,22 @@
-import Modal from ".";
 import {
   faCircleXmark,
   faCircleCheck,
   faInfoCircle,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
+
 import { RootState } from "@services/store";
-import { setUtilModalSetting } from "@reducers/app";
 import { IUtilModalType } from "@entities/app";
+import useUtilModal from "@hooks/useUtilModal";
+
+import Modal from ".";
 
 export default () => {
   const utilModalSetting = useSelector(
     (state: RootState) => state.app.utilModalSetting
   );
-  const dispatch = useDispatch();
+  const { closeModal } = useUtilModal();
 
   const getIcon = () => {
     switch (utilModalSetting.type) {
@@ -44,7 +46,7 @@ export default () => {
   };
 
   return utilModalSetting.open ? (
-    <Modal closeModal={() => dispatch(setUtilModalSetting({ open: false }))}>
+    <Modal closeModal={closeModal}>
       <div className="flex flex-col items-center gap-4">
         {getIcon()}
         {utilModalSetting.text}
