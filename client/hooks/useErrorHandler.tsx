@@ -1,5 +1,5 @@
-import { ErrorKey, ERROR_MESSAGE } from "@entities/app";
-import { setErrorModalSetting } from "@reducers/app";
+import { ERROR_MESSAGE, IUtilModalType } from "@entities/app";
+import { setUtilModalSetting } from "@reducers/app";
 import { AxiosError } from "axios";
 import { useDispatch } from "react-redux";
 
@@ -12,7 +12,7 @@ export default () => {
        * if there is no keys => error was thrown from client
        */
       dispatch(
-        setErrorModalSetting({ text: ERROR_MESSAGE[e.message as ErrorKey] })
+        setUtilModalSetting({ text: e.message, type: IUtilModalType.fail })
       );
     } else {
       /**
@@ -24,8 +24,9 @@ export default () => {
        */
       if (e.response?.data as AxiosError) {
         dispatch(
-          setErrorModalSetting({
+          setUtilModalSetting({
             text: e.response.data ?? ERROR_MESSAGE.UNKNOWN_ERROR,
+            type: IUtilModalType.fail,
           })
         );
         return;
@@ -36,7 +37,10 @@ export default () => {
        */
       if (e.info) {
         dispatch(
-          setErrorModalSetting({ text: e.info ?? ERROR_MESSAGE.UNKNOWN_ERROR })
+          setUtilModalSetting({
+            text: e.info ?? ERROR_MESSAGE.UNKNOWN_ERROR,
+            type: IUtilModalType.fail,
+          })
         );
         return;
       }
@@ -46,7 +50,10 @@ export default () => {
        */
       console.log(e);
       dispatch(
-        setErrorModalSetting({ text: e.message ?? ERROR_MESSAGE.UNKNOWN_ERROR })
+        setUtilModalSetting({
+          text: e.message ?? ERROR_MESSAGE.UNKNOWN_ERROR,
+          type: IUtilModalType.fail,
+        })
       );
     }
   };

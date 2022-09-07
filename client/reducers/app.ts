@@ -1,9 +1,16 @@
-import { IAppState, LocalStorageKey, Theme } from "@entities/app";
+import {
+  IUtilModalType,
+  IAppState,
+  LocalStorageKey,
+  Theme,
+  IUtilModalSetting,
+} from "@entities/app";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 const initialState: IAppState = {
   theme: Theme.dark,
-  errorModalSetting: {
+  utilModalSetting: {
+    type: IUtilModalType.info,
     text: "",
     open: false,
   },
@@ -25,12 +32,13 @@ const reducers = {
     state.theme = action.payload;
     localStorage.setItem(LocalStorageKey.theme, action.payload);
   },
-  setErrorModalSetting: (
+  setUtilModalSetting: (
     state: IAppState,
-    action: PayloadAction<{ text?: string; open?: boolean }>
+    action: PayloadAction<Partial<IUtilModalSetting>>
   ) => {
-    state.errorModalSetting = {
-      text: action.payload.text ?? "Something went wrong",
+    state.utilModalSetting = {
+      type: action.payload.type ?? IUtilModalType.info,
+      text: action.payload.text ?? "",
       open: action.payload.open ?? true,
     };
   },
@@ -42,5 +50,5 @@ const app = createSlice({
   reducers,
 });
 
-export const { toggleTheme, setTheme, setErrorModalSetting } = app.actions;
+export const { toggleTheme, setTheme, setUtilModalSetting } = app.actions;
 export default app.reducer;

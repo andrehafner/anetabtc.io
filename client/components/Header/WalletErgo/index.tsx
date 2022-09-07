@@ -7,7 +7,6 @@ import { useDispatch, useSelector } from "react-redux";
 import ConnectionStatus from "./ConnectionStatus";
 import Disconnect from "./Disconnect";
 import Modal from "@components/Modal";
-import { setErrorModalSetting } from "@reducers/app";
 import useErrorHandler from "@hooks/useErrorHandler";
 
 const WalletCardano = () => {

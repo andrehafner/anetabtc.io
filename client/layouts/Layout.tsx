@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import Head from "next/head";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@services/store";
-import ErrorModal from "@components/Modal/ErrorModal";
+import UtilModal from "@components/Modal/UtilModal";
 import { LocalStorageKey, Theme } from "@entities/app";
 import { setTheme } from "@reducers/app";
 
@@ -22,7 +22,7 @@ const Layout = ({ children }: { children: JSX.Element }) => {
       className={`theme-${theme} next-container relative min-h-full w-full flex flex-col items-center`}
     >
       <div className="w-full max-w-6xl">
-        <ErrorModal></ErrorModal>
+        <UtilModal></UtilModal>
         <Head>
           <link rel="icon" href="/favicon.ico"></link>
           <title>anetaBTC Staking Platform</title>

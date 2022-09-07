@@ -1,4 +1,4 @@
-import { ErrorKey } from "@entities/app";
+import { ErrorKey, ERROR_MESSAGE } from "@entities/app";
 import { NautilusErgoApi, ERGO_TX_FORMAT, IErgoUTXO } from "@entities/ergo";
 import { RootState } from "@services/store";
 import { useSelector } from "react-redux";
@@ -15,14 +15,16 @@ const useWallet = () => {
      * Recommended by nautilus to use window.ergoConnector
      */
     const ergoConnector = (window as any).ergoConnector;
-    if (ergoConnector == null) throw new Error(ErrorKey.NAUTILUS_NOT_FOUND);
+    if (ergoConnector == null)
+      throw new Error(ERROR_MESSAGE[ErrorKey.NAUTILUS_NOT_FOUND]);
 
     const nautilus = ergoConnector.nautilus;
-    if (nautilus == null) throw new Error(ErrorKey.NAUTILUS_NOT_FOUND);
+    if (nautilus == null)
+      throw new Error(ERROR_MESSAGE[ErrorKey.NAUTILUS_NOT_FOUND]);
 
     const nautilusConnected = await nautilus.connect();
     if (nautilusConnected == null)
-      throw new Error(ErrorKey.NAUTILUS_CONNECTION_FAIL);
+      throw new Error(ERROR_MESSAGE[ErrorKey.NAUTILUS_CONNECTION_FAIL]);
 
     return await nautilus.getContext();
   };
@@ -90,7 +92,7 @@ const useWallet = () => {
      * if no address => staking fail
      */
     if (address === "" || addresses.length === 0) {
-      throw new Error(ErrorKey.STAKE_FAIL);
+      throw new Error(ERROR_MESSAGE[ErrorKey.STAKE_FAIL]);
     }
 
     const request = {

@@ -1,8 +1,10 @@
 import { INetaStakeBox } from "@entities/ergo";
 import { shorten } from "@/utils";
-import { Currency } from "@entities/app";
+import { Currency, IUtilModalType } from "@entities/app";
 import useErrorHandler from "@hooks/useErrorHandler";
 import useWallet from "@hooks/useErgoWallet";
+import { useDispatch } from "react-redux";
+import { setUtilModalSetting } from "@reducers/app";
 
 interface Props {
   stakeBox: INetaStakeBox;
@@ -11,10 +13,18 @@ interface Props {
 export default ({ stakeBox }: Props) => {
   const { handleError } = useErrorHandler();
   const { unstake } = useWallet();
+  const dispatch = useDispatch();
 
   const handleUnstake = async () => {
     try {
       await unstake(stakeBox.stakeAmount, stakeBox.boxId);
+      dispatch(
+        setUtilModalSetting({
+          type: IUtilModalType.success,
+          text: "Unstaking successful!",
+          open: true,
+        })
+      );
     } catch (e) {
       handleError(e);
     }

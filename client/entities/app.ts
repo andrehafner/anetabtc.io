@@ -1,9 +1,18 @@
+export enum IUtilModalType {
+  success,
+  fail,
+  info,
+}
+
+export interface IUtilModalSetting {
+  type: IUtilModalType;
+  open: boolean;
+  text: string;
+}
+
 export interface IAppState {
   theme: Theme;
-  errorModalSetting: {
-    open: boolean;
-    text: string;
-  };
+  utilModalSetting: IUtilModalSetting;
 }
 
 export enum Theme {

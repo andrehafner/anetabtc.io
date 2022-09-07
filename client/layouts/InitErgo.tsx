@@ -1,10 +1,10 @@
 import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+
 import useErgoWallet from "@hooks/useErgoWallet";
 import { setWallet } from "@reducers/ergo";
-import { useDispatch } from "react-redux";
-import { ErrorKey, ERROR_MESSAGE, LocalStorageKey, Theme } from "@entities/app";
+import { LocalStorageKey } from "@entities/app";
 import { ErgoWalletName } from "@entities/ergo";
-import { setErrorModalSetting, setTheme } from "@reducers/app";
 import useErrorHandler from "@hooks/useErrorHandler";
 import { getStakedNetaStats } from "@services/ergo";
 
