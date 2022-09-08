@@ -40,7 +40,9 @@ export default () => {
 
   const init = async () => {
     try {
-      if (walletApi == null) return;
+      if (walletApi == null) {
+        return;
+      }
       const addresses = await getWalletAddresses();
       const [porto, stats] = await Promise.all([
         getStakingPortfolio(addresses),
