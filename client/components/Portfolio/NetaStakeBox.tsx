@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import { INetaStakeBox } from "@entities/ergo";
 import { Currency } from "@entities/app";
-import { shorten } from "@/utils";
+import { i18nNumber, shorten } from "@/utils";
 import useErrorHandler from "@hooks/useErrorHandler";
 import useWallet from "@hooks/useErgoWallet";
 import useUtilModal from "@hooks/useUtilModal";
@@ -78,7 +78,7 @@ export default ({ stakeBox }: Props) => {
       ) : null}
       <div>Stake ID: {shorten(stakeBox.stakeKeyId, 8)}</div>
       <div>
-        Stake Amount: {stakeBox.stakeAmount} {Currency.NETA}
+        Stake Amount: {i18nNumber(stakeBox.stakeAmount, 6)} {Currency.NETA}
       </div>
       <button
         className="clickable button rounded-lg py-1 px-2.5 button-danger w-fit"

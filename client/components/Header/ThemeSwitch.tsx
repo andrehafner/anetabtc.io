@@ -11,7 +11,7 @@ const ThemeSwitch = () => {
 
   return (
     <button
-      className="clickable component h-full px-2.5 rounded-lg flex items-center"
+      className="h-10 clickable component px-2.5 rounded-lg flex items-center"
       onClick={() => dispatch(toggleTheme())}
     >
       <FontAwesomeIcon

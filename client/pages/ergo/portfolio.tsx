@@ -71,8 +71,8 @@ export default () => {
           <Loading></Loading>
         ) : (
           <>
+            <StakingStatistic stats={stats}></StakingStatistic>
             <Portfolio portfolio={portfolio}></Portfolio>
-            <StakingStatistic stats={stats}></StakingStatistic>{" "}
           </>
         )}
       </>

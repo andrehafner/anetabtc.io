@@ -21,7 +21,7 @@ const ChainSwitch = () => {
           <div className="px-2.5 w-28 py-1 clickable button rounded-lg flex items-center gap-2 box-content">
             <CardanoLogo></CardanoLogo>
             <div>Cardano</div>
-            {pathname === "/cardano" ? (
+            {pathname.includes("/cardano") ? (
               <FontAwesomeIcon
                 className="text-agreen h-2 ml-auto"
                 icon={faPowerOff}
@@ -33,7 +33,7 @@ const ChainSwitch = () => {
           <div className="px-2.5 w-28 py-1 clickable button rounded-lg flex items-center gap-2 box-content">
             <ErgoLogo></ErgoLogo>
             <div>Ergo</div>
-            {pathname === "/ergo" ? (
+            {pathname.includes("/ergo") ? (
               <FontAwesomeIcon
                 className="text-agreen h-2 ml-auto"
                 icon={faPowerOff}
@@ -46,7 +46,7 @@ const ChainSwitch = () => {
   };
 
   return (
-    <div className="h-full relative" ref={ref}>
+    <div className="h-10 relative" ref={ref}>
       {pathname.includes(Blockchain.cardano) ? (
         <div
           className="relative clickable component h-full px-2.5 rounded-lg flex items-center gap-2"

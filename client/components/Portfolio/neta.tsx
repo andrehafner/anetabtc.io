@@ -4,6 +4,7 @@ import NetaStakeBox from "./NetaStakeBox";
 
 import { Blockchain, Currency } from "@entities/app";
 import { INetaPortfolio, INetaStakeBox } from "@entities/ergo";
+import { i18nNumber } from "@/utils";
 
 interface Props {
   portfolio: INetaPortfolio;
@@ -23,7 +24,7 @@ export default ({ portfolio }: Props) => {
               </span>
               {portfolio ? (
                 <div>
-                  Staked {Currency.NETA}: {portfolio.totalStaked}{" "}
+                  Staked {Currency.NETA}: {i18nNumber(portfolio.totalStaked, 6)}{" "}
                   {Currency.NETA}
                 </div>
               ) : (

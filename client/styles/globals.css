@@ -9,8 +9,12 @@ body {
   margin: 0;
   width: 100vw;
   height: 100vh;
-  font-family: "Avenir Next Cyr Medium", sans-serif;
-  font-weight: 100;
+  /* font-family: "Avenir Next Cyr Medium", sans-serif; */
+  font-family: "Nunito", sans-serif;
+  /* font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif; */
+  font-weight: 400;
   --gold-color: #ffd700;
 }
 
@@ -35,30 +39,30 @@ input:focus-visible {
       rgba(255, 255, 255, 0.7) 100%
     ),
     linear-gradient(
-      237.67deg,
-      rgba(155, 217, 242, 0) 30.62%,
-      rgba(255, 215, 138, 0.33) 100%
-    ),
-    linear-gradient(
       121.92deg,
       rgba(155, 217, 242, 0) 31.4%,
       rgba(255, 215, 138, 0.33) 100%
     ),
     linear-gradient(
       115.18deg,
-      rgba(186, 168, 230, 0.5) -35.29%,
-      rgba(186, 168, 230, 0) 57.9%
+      rgba(168, 200, 230, 0.5) -35.29%,
+      rgba(168, 200, 230, 0) 57.9%
     ),
     linear-gradient(
       245.41deg,
-      rgba(186, 168, 230, 0.55) -12.18%,
+      rgba(168, 230, 226, 0.55) -12.18%,
       rgba(155, 217, 242, 0) 56.8%
     ),
-    linear-gradient(0deg, rgba(226, 216, 250, 0.12), rgba(226, 216, 250, 0.12)),
-    #bcd4f2;
+    linear-gradient(
+      237.67deg,
+      rgba(179, 233, 255, 0) 30.62%,
+      rgba(255, 215, 138, 0.33) 100%
+    ),
+    linear-gradient(0deg, #b8defa, #b8defa),
+    linear-gradient(0deg, rgba(216, 234, 250, 0.12), rgba(216, 234, 250, 0.12));
   --color: black;
   --component-bg: rgba(255, 255, 255, 1);
-  --button-bg: rgba(200, 214, 245, 1);
+  --button-bg: rgba(185, 221, 255, 1);
   --button-danger-bg: #ff6c6c;
   --clickable-box-shadow: rgb(0 0 0 / 50%);
   --clickable-border-color: rgb(0, 0, 0);
@@ -67,21 +71,31 @@ input:focus-visible {
 
 .theme-dark {
   --body-bg: black;
-  --body-bg: linear-gradient(0deg, #004469, #004469),
+  --body-bg: linear-gradient(0deg, #002c69, #002c69),
+    linear-gradient(
+      122.33deg,
+      rgba(0, 44, 105, 0.5) 0%,
+      rgba(134, 134, 134, 0) 69.38%
+    ),
     linear-gradient(
       180deg,
-      rgba(8, 10, 14, 0.0768) 24.06%,
-      rgba(10, 23, 49, 0.48) 38.02%
+      rgba(0, 68, 105, 0) 55.42%,
+      rgba(0, 0, 0, 0.45) 102.55%
     ),
     linear-gradient(
-      282.69deg,
-      rgba(41, 41, 41, 0) 15.98%,
-      rgba(39, 54, 133, 0.3) 100%
+      238.28deg,
+      rgba(39, 54, 133, 0.65) 0%,
+      rgba(130, 130, 130, 0) 68.22%
     ),
     linear-gradient(
-      246.96deg,
-      rgba(255, 215, 138, 0.0875) -7.94%,
-      rgba(0, 0, 0, 0) 74.69%
+      237.69deg,
+      rgba(45, 45, 45, 0) 30.63%,
+      rgba(188, 212, 242, 0.2) 125.87%
+    ),
+    linear-gradient(
+      120.81deg,
+      rgba(133, 133, 133, 0) 31.32%,
+      rgba(255, 215, 138, 0.2) 123.21%
     );
   --color: white;
   --component-bg: rgba(25, 27, 31, 1);

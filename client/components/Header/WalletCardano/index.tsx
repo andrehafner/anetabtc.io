@@ -56,7 +56,7 @@ const WalletCardano = () => {
 
   return (
     <>
-      <div className="relative h-full">
+      <div className="relative h-10">
         <div
           className="clickable component h-full px-2.5 rounded-lg flex items-center"
           onClick={handleOnClick}

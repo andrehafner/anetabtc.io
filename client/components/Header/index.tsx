@@ -26,20 +26,25 @@ const Header: React.FC = () => {
   };
 
   return (
-    <div className="md:h-20 p-6 flex flex-col gap-4 md:gap-0 md:flex-row items-center">
-      <div className="h-8 md:h-full gap-2 flex flex-row items-center">
+    <div className="p-6 flex flex-col gap-4 md:gap-0 md:flex-row items-center">
+      <div className="gap-2 flex flex-row items-center">
         <Link href="/">
           <img
-            className="h-full cursor-pointer"
+            className="h-10 cursor-pointer h-8"
             src={`/logo-theme-${theme}.png`}
           ></img>
         </Link>
         {/* <TVL /> */}
       </div>
-      <div className="h-8 md:h-full gap-2 flex flex-row-reverse items-center gap-2 md:ml-auto">
+      <div className="gap-2 flex flex-row-reverse items-center gap-2 md:ml-auto flex-wrap justify-center">
         <ThemeSwitch></ThemeSwitch>
         <RenderWallet></RenderWallet>
         <ChainSwitch></ChainSwitch>
+        <Link href="/dashboard">
+          <button className="h-10 clickable component px-2.5 rounded-lg flex items-center">
+            Dashboard
+          </button>
+        </Link>
       </div>
     </div>
   );
