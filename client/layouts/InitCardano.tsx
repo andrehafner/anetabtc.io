@@ -1,14 +1,11 @@
 import React from "react";
 import { useEffect } from "react";
-import { LocalStorageKey, Theme } from "@entities/app";
+
+import { LocalStorageKey } from "@entities/app";
 import { CardanoWalletName } from "@entities/cardano";
-import { setTheme } from "@reducers/app";
-import { useDispatch } from "react-redux";
-import { setWallet } from "@reducers/cardano";
 import useCardanoWallet from "@hooks/useCardanoWallet";
 
 const InitCardano = ({ children }: { children: JSX.Element }) => {
-  const dispatch = useDispatch();
   const { enableWallet } = useCardanoWallet();
 
   useEffect(() => {
@@ -18,10 +15,7 @@ const InitCardano = ({ children }: { children: JSX.Element }) => {
       ) as CardanoWalletName;
       if (savedWalletName && savedWalletName in CardanoWalletName) {
         try {
-          const { wallet, walletApi } = await enableWallet(savedWalletName);
-          dispatch(
-            setWallet({ walletName: savedWalletName, wallet, walletApi })
-          );
+          await enableWallet(savedWalletName);
         } catch (e) {}
       }
     })();

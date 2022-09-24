@@ -1,11 +1,12 @@
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+
 import Modal from "@components/Modal";
 import { WalletConnectionStatus } from "@entities/app";
 import { CardanoWalletName } from "@entities/cardano";
-import { setWallet } from "@reducers/cardano";
 import { RootState } from "@services/store";
 import useCardanoWallet from "@hooks/useCardanoWallet";
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+
 import ConnectionStatus from "./ConnectionStatus";
 import Disconnect from "./Disconnect";
 import WalletList from "./WalletList";
@@ -19,7 +20,6 @@ const WalletCardano = () => {
   const { wallet, walletApi } = useSelector(
     (state: RootState) => state.cardano
   );
-  const dispatch = useDispatch();
   const { enableWallet } = useCardanoWallet();
 
   /**
@@ -34,8 +34,7 @@ const WalletCardano = () => {
   }, [wallet]);
 
   const connectWallet = async (walletName: CardanoWalletName) => {
-    const { wallet, walletApi } = await enableWallet(walletName);
-    dispatch(setWallet({ walletName, wallet, walletApi }));
+    await enableWallet(walletName);
     setOpenWalletSelection(false);
     setWalletConnectionStatus(WalletConnectionStatus.connected);
   };

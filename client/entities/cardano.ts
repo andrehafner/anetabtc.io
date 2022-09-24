@@ -1,4 +1,5 @@
 import { Cip30Wallet, WalletApi } from "@cardano-sdk/cip30";
+import { Lucid } from "lucid-cardano";
 
 export enum CardanoWalletName {
   nami = "nami",
@@ -12,6 +13,7 @@ export enum CardanoWalletName {
 export interface ICardanoState {
   wallet: Cip30Wallet | null;
   walletApi: WalletApi | null;
+  lucidClient: Lucid | null;
 }
 
 export enum StakingLength {
@@ -46,4 +48,9 @@ export interface IcnetaStakingContext {
   setStakingAmount: Function;
   submitStake: Function;
   setStakingLength: Function;
+}
+
+export enum BlockfrostURL {
+  testnet = "https://cardano-testnet.blockfrost.io/api/v0",
+  mainnet = "https://cardano-mainnet.blockfrost.io/api/v0",
 }

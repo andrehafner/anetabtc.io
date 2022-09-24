@@ -1,34 +1,33 @@
 import { RootState } from "@services/store";
-import { useSelector } from "react-redux";
-import { Address } from "@emurgo/cardano-serialization-lib-asmjs";
-import { CardanoWalletName } from "@entities/cardano";
-import { Cip30Wallet, WalletApi } from "@cardano-sdk/cip30";
+import { useDispatch, useSelector } from "react-redux";
+import { BlockfrostURL, CardanoWalletName } from "@entities/cardano";
+import { Blockfrost, Lucid } from "lucid-cardano";
+import { setWallet } from "@reducers/cardano";
 
 const Buffer = require("buffer").Buffer;
 
 const useWallet = () => {
-  const { wallet, walletApi } = useSelector(
-    (state: RootState) => state.cardano
-  );
+  const dispatch = useDispatch();
+  const { lucidClient } = useSelector((state: RootState) => state.cardano);
 
-  const enableWallet = async (
-    walletName: CardanoWalletName
-  ): Promise<{ walletApi: WalletApi; wallet: Cip30Wallet }> => {
+  const enableWallet = async (walletName: CardanoWalletName) => {
     const cardano = (window as any).cardano;
     if (cardano == null) throw new Error();
     const wallet = cardano[walletName];
     const walletApi = await wallet.enable();
-    return {
-      wallet,
-      walletApi,
-    };
+    const blockfrostAPI = new Blockfrost(
+      BlockfrostURL.mainnet,
+      "mainnetGXsABkjQDCdtDNrPdRZJFeqaPH41BPSY"
+    );
+    const lucid = await Lucid.new(blockfrostAPI, "Mainnet");
+    const lucidClient = await lucid.selectWallet(walletApi);
+
+    dispatch(setWallet({ walletName, walletApi, lucidClient, wallet }));
   };
 
   const getWalletAddress = async (): Promise<string> => {
-    const addrs = await walletApi?.getUsedAddresses();
-    if (addrs == null) return "";
-    const addrBuffer = Buffer.from(addrs[0], "hex");
-    const addr = Address.from_bytes(addrBuffer).to_bech32();
+    if (lucidClient == null) return "";
+    const addr = await lucidClient?.wallet.address();
     return addr;
   };
 

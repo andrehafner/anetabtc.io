@@ -8,7 +8,14 @@ const Disconnect = ({ closeButton }: { closeButton: Function }) => {
 
   const handleOnClick = () => {
     closeButton();
-    dispatch(setWallet({ walletName: null, wallet: null, walletApi: null }));
+    dispatch(
+      setWallet({
+        walletName: null,
+        wallet: null,
+        walletApi: null,
+        lucidClient: null,
+      })
+    );
   };
 
   return (
