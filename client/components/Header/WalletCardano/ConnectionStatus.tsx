@@ -20,11 +20,12 @@ const ConnectionStatus = ({
   const [addr, setAddr] = useState("");
 
   useEffect(() => {
+    if (walletConnectionStatus !== WalletConnectionStatus.connected) return;
     (async () => {
       const address = await getShortWalletAddress();
       setAddr(address);
     })();
-  }, [walletApi]);
+  }, [walletApi, walletConnectionStatus]);
 
   switch (walletConnectionStatus) {
     case WalletConnectionStatus.connected:

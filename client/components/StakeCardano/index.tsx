@@ -35,7 +35,7 @@ const Stake = () => {
 
   const submitStake = async () => {
     try {
-      await stake();
+      await stake(stakingAmount, stakingLength);
       setStakingState(StakingState.success);
     } catch (e) {
       handleError(e);
