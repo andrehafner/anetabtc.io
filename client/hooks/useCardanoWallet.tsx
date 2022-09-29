@@ -53,21 +53,32 @@ const useWallet = () => {
     const cNetaStakingScriptAddress =
       await lucidClient.utils.validatorToAddress(cNetaStakingContract);
     const userAddress = await getWalletAddress();
+    const { paymentCredential } =
+      lucidClient.utils.getAddressDetails(userAddress);
+    if (paymentCredential == null) {
+      throw new Error("Cannot create payment credential");
+    }
+    const ownAddress = new Constr(0, [
+      new Constr(0, [paymentCredential.hash]),
+      new Constr(1, []),
+    ]);
+
     const cNetaAmount = BigInt(Number(stakingAmount));
-    const stakingStartTime = new Date(0).getTime().toString();
-    const stakingDeadline = new Date(5).getTime().toString();
-    const dataFields = [
-      userAddress,
+    const stakingStartTime = Date.now().toString();
+    let endTime = new Date();
+    endTime.setDate(endTime.getDate() + 30 * 6);
+    const stakingEndTime = endTime.getTime().toString();
+    const datumfields = [
+      ownAddress,
       BigInt(stakingStartTime),
-      BigInt(stakingDeadline),
+      BigInt(stakingEndTime),
       BigInt(0),
     ];
-    console.log(dataFields);
-    const stakingData = Data.to(new Constr(0, dataFields));
+    const stakingDatum = Data.to(new Constr(0, datumfields));
 
     const tx = await lucidClient
       .newTx()
-      .payToContract(cNetaStakingScriptAddress, stakingData, {
+      .payToContract(cNetaStakingScriptAddress, stakingDatum, {
         lovelace: BigInt(2000000),
         [cNetaPolicyID + cNetaTokenNameHex]: cNetaAmount,
       })
