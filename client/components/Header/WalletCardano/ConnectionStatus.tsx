@@ -1,6 +1,7 @@
 import { Cip30Wallet, WalletApi } from "@cardano-sdk/cip30";
 import { WalletConnectionStatus } from "@entities/app";
 import useWallet from "@hooks/useCardanoWallet";
+import useErrorHandler from "@hooks/useErrorHandler";
 import { useEffect, useState } from "react";
 
 interface Props {
@@ -17,13 +18,19 @@ const ConnectionStatus = ({
   walletConnectionStatus,
 }: Props) => {
   const { getShortWalletAddress } = useWallet();
+  const { handleError } = useErrorHandler();
   const [addr, setAddr] = useState("");
 
   useEffect(() => {
     if (walletConnectionStatus !== WalletConnectionStatus.connected) return;
     (async () => {
-      const address = await getShortWalletAddress();
-      setAddr(address);
+      try {
+        if (walletApi == null) return;
+        const address = await getShortWalletAddress();
+        setAddr(address);
+      } catch (e) {
+        handleError(e);
+      }
     })();
   }, [walletApi, walletConnectionStatus]);
 

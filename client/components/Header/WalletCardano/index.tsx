@@ -10,8 +10,10 @@ import useCardanoWallet from "@hooks/useCardanoWallet";
 import ConnectionStatus from "./ConnectionStatus";
 import Disconnect from "./Disconnect";
 import WalletList from "./WalletList";
+import useErrorHandler from "@hooks/useErrorHandler";
 
 const WalletCardano = () => {
+  const { handleError } = useErrorHandler();
   const [openWalletSelection, setOpenWalletSelection] =
     useState<boolean>(false);
   const [showDisconnectButton, setShowDisconnectButton] = useState(false);
@@ -34,9 +36,13 @@ const WalletCardano = () => {
   }, [wallet]);
 
   const connectWallet = async (walletName: CardanoWalletName) => {
-    await enableWallet(walletName);
-    setOpenWalletSelection(false);
-    setWalletConnectionStatus(WalletConnectionStatus.connected);
+    try {
+      await enableWallet(walletName);
+      setOpenWalletSelection(false);
+      setWalletConnectionStatus(WalletConnectionStatus.connected);
+    } catch (e) {
+      handleError(e);
+    }
   };
 
   const handleOnClick = () => {

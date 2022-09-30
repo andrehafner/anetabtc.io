@@ -4,9 +4,11 @@ import { useEffect } from "react";
 import { LocalStorageKey } from "@entities/app";
 import { CardanoWalletName } from "@entities/cardano";
 import useCardanoWallet from "@hooks/useCardanoWallet";
+import useErrorHandler from "@hooks/useErrorHandler";
 
 const InitCardano = ({ children }: { children: JSX.Element }) => {
   const { enableWallet } = useCardanoWallet();
+  const { handleError } = useErrorHandler();
 
   useEffect(() => {
     (async () => {
@@ -16,7 +18,9 @@ const InitCardano = ({ children }: { children: JSX.Element }) => {
       if (savedWalletName && savedWalletName in CardanoWalletName) {
         try {
           await enableWallet(savedWalletName);
-        } catch (e) {}
+        } catch (e) {
+          handleError(e);
+        }
       }
     })();
   }, []);
