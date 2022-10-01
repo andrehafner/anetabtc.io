@@ -71,21 +71,10 @@ input:focus-visible {
 
 .theme-dark {
   --body-bg: black;
-  --body-bg: linear-gradient(0deg, #002c69, #002c69),
-    linear-gradient(
-      122.33deg,
-      rgba(0, 44, 105, 0.5) 0%,
-      rgba(134, 134, 134, 0) 69.38%
-    ),
-    linear-gradient(
+  --body-bg: linear-gradient(
       180deg,
       rgba(0, 68, 105, 0) 55.42%,
       rgba(0, 0, 0, 0.45) 102.55%
-    ),
-    linear-gradient(
-      238.28deg,
-      rgba(39, 54, 133, 0.65) 0%,
-      rgba(130, 130, 130, 0) 68.22%
     ),
     linear-gradient(
       237.69deg,
@@ -96,7 +85,18 @@ input:focus-visible {
       120.81deg,
       rgba(133, 133, 133, 0) 31.32%,
       rgba(255, 215, 138, 0.2) 123.21%
-    );
+    ),
+    linear-gradient(
+      122.33deg,
+      rgba(0, 44, 105, 0.5) 0%,
+      rgba(134, 134, 134, 0) 69.38%
+    ),
+    linear-gradient(
+      238.28deg,
+      rgba(39, 54, 133, 0.65) 0%,
+      rgba(130, 130, 130, 0) 68.22%
+    ),
+    #002c69;
   --color: white;
   --component-bg: rgba(25, 27, 31, 1);
   --button-bg: rgba(33, 70, 118, 1);
