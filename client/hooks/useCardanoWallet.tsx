@@ -81,8 +81,8 @@ const useWallet = () => {
 
     const tx = await lucidClient
       .newTx()
-      .validFrom(Date.now() - 100000)
-      .validTo(Date.now() + 100000)
+      .validFrom(Date.now() - 100 * 1000)
+      .validTo(Date.now() + 2 * 60 * 60 * 1000) // 2 hours validity
       .payToContract(cNetaStakingScriptAddress, stakingDatum, {
         lovelace: BigInt(2000000),
         [CNETA_POLICY_ID + CNETA__TOKEN_NAME_HEX]: cNetaAmount,
@@ -90,6 +90,7 @@ const useWallet = () => {
       .complete();
     const signedTx = await tx.sign().complete();
     const txHash = await signedTx.submit();
+    console.log(txHash);
     return txHash;
   };
 
@@ -113,20 +114,14 @@ const useWallet = () => {
 
     const utxotest = await lucidClient.utxosAt(cNetaStakingScriptAddress);
 
-    console.log(utxotest);
-
-    console.log(utxo);
-
     const tx = await lucidClient
       .newTx()
-      .validFrom(Date.now() - 100000)
-      .validTo(Date.now() + 100000)
+      .validFrom(Date.now() - 100 * 1000)
+      .validTo(Date.now() + 2 * 60 * 60 * 1000) // 2 hours validity
       .collectFrom([utxo], redeemer)
       .attachSpendingValidator(CNETA_STAKING_SCRIPT)
       .addSignerKey(paymentCredential.hash)
       .complete();
-
-    console.log(tx);
 
     const signedTx = await tx.sign().complete();
     const txHash = await signedTx.submit();
