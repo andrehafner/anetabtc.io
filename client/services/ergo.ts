@@ -1,5 +1,5 @@
-import { GetStakeNetaTxDTO, INetaPortfolio, INetaStat } from "@entities/ergo";
 import axios from "axios";
+import { GetStakeNetaTxDTO, INetaPortfolio, INetaStat } from "@entities/ergo";
 import { IUnstakeNeta } from "./ergo.dto";
 
 const defaultOptions = {
