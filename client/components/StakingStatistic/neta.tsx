@@ -1,8 +1,7 @@
-import Link from "next/link";
-import { Currency } from "@entities/app";
-import Spinner from "@components/Spinner";
 import { INetaStat } from "@entities/ergo";
 import { i18nNumber } from "@/utils";
+
+import StatBox from "./StatBox";
 
 interface Props {
   stats: Partial<INetaStat>;
@@ -16,18 +15,15 @@ export default ({ stats }: Props) => {
           NETA Staking Statistics
         </span>
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full">
-          <div className="flex flex-col items-center p-5 component rounded-2xl gap-2 justify-center text-xl w-full sm:w-56">
-            <div className="font-bold">APR</div>
-            <div>{stats.apr?.toFixed(2)}%</div>
-          </div>
-          <div className="flex flex-col items-center p-5 component rounded-2xl gap-2 justify-center text-xl w-full sm:w-56">
-            <div className="font-bold">Number of Stakers</div>
-            <div>{i18nNumber(stats.numberOfStakers ?? 0, 0)}</div>
-          </div>
-          <div className="flex flex-col items-center p-5 component rounded-2xl gap-2 justify-center text-xl w-full sm:w-56">
-            <div className="font-bold">Total NETA Staked</div>
-            <div>{i18nNumber(stats.totalStaked ?? 0, 0)}</div>
-          </div>
+          <StatBox title="APR" value={`${stats.apr?.toFixed(2)}%`}></StatBox>
+          <StatBox
+            title="Number of Stakers"
+            value={i18nNumber(stats.numberOfStakers ?? 0, 0)}
+          ></StatBox>
+          <StatBox
+            title="Total NETA Staked"
+            value={i18nNumber(stats.totalStaked ?? 0, 0)}
+          ></StatBox>
         </div>
       </div>
     </div>
