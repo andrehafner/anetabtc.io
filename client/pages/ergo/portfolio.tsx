@@ -1,13 +1,13 @@
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { useRouter } from "next/router";
+
 import InitErgo from "@layouts/InitErgo";
 import Header from "@components/Header";
 import Portfolio from "@components/Portfolio/neta";
-import { useCallback, useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 import { RootState } from "@services/store";
 import useWallet from "@hooks/useErgoWallet";
-import { useRouter } from "next/router";
 import { getStakedNetaStats, getStakingPortfolio } from "@services/ergo";
-import { Currency } from "@entities/app";
 import StakingStatistic from "@components/StakingStatistic/neta";
 import useErrorHandler from "@hooks/useErrorHandler";
 import { INetaPortfolio, INetaStat } from "@entities/ergo";
@@ -40,21 +40,19 @@ export default () => {
 
   const init = async () => {
     try {
-      if (walletApi == null) {
-        return;
+      if (walletApi != null) {
+        const addresses = await getWalletAddresses();
+        const porto = await getStakingPortfolio(addresses);
+        setPortfolio(porto);
       }
-      const addresses = await getWalletAddresses();
-      const [porto, stats] = await Promise.all([
-        getStakingPortfolio(addresses),
-        getStakedNetaStats(),
-      ]);
-      setPortfolio(porto);
+      const stats = await getStakedNetaStats();
       if (stats != null) {
         setStats(stats);
       }
-      setLoading(false);
     } catch (e) {
       handleError(e);
+      setLoading(false);
+    } finally {
       setLoading(false);
     }
   };
@@ -72,7 +70,9 @@ export default () => {
         ) : (
           <>
             <StakingStatistic stats={stats}></StakingStatistic>
-            <Portfolio portfolio={portfolio}></Portfolio>
+            {portfolio.totalStaked === 0 ? null : (
+              <Portfolio portfolio={portfolio}></Portfolio>
+            )}
           </>
         )}
       </>
