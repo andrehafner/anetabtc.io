@@ -1,0 +1,176 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import "//fonts.cdnfonts.com/css/avenir-next-cyr";
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  width: 100vw;
+  height: 100vh;
+  /* font-family: "Avenir Next Cyr Medium", sans-serif; */
+  font-family: "Nunito", sans-serif;
+  /* font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif; */
+  font-weight: 400;
+  --gold-color: #ffd700;
+}
+
+#__next {
+  width: 100%;
+  height: 100%;
+}
+
+button:focus-within,
+input:focus-within,
+input:focus-visible,
+input:focus-visible {
+  border-color: transparent;
+  outline: none;
+}
+
+.theme-light {
+  --body-bg: white;
+  --body-bg: linear-gradient(
+      180deg,
+      rgba(155, 217, 242, 0) 41.16%,
+      rgba(255, 255, 255, 0.7) 100%
+    ),
+    linear-gradient(
+      121.92deg,
+      rgba(155, 217, 242, 0) 31.4%,
+      rgba(255, 215, 138, 0.33) 100%
+    ),
+    linear-gradient(
+      115.18deg,
+      rgba(168, 200, 230, 0.5) -35.29%,
+      rgba(168, 200, 230, 0) 57.9%
+    ),
+    linear-gradient(
+      245.41deg,
+      rgba(168, 230, 226, 0.55) -12.18%,
+      rgba(155, 217, 242, 0) 56.8%
+    ),
+    linear-gradient(
+      237.67deg,
+      rgba(179, 233, 255, 0) 30.62%,
+      rgba(255, 215, 138, 0.33) 100%
+    ),
+    linear-gradient(0deg, #b8defa, #b8defa),
+    linear-gradient(0deg, rgba(216, 234, 250, 0.12), rgba(216, 234, 250, 0.12));
+  --color: black;
+  --component-bg: rgba(255, 255, 255, 1);
+  --button-bg: rgba(185, 221, 255, 1);
+  --button-danger-bg: #ff6c6c;
+  --clickable-box-shadow: rgb(0 0 0 / 50%);
+  --clickable-border-color: rgb(0, 0, 0);
+  --clickable-border-color-less: rgba(0, 0, 0, 0.2);
+}
+
+.theme-dark {
+  --body-bg: black;
+  --body-bg: linear-gradient(0deg, #002c69, #002c69),
+    linear-gradient(
+      122.33deg,
+      rgba(0, 44, 105, 0.5) 0%,
+      rgba(134, 134, 134, 0) 69.38%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(0, 68, 105, 0) 55.42%,
+      rgba(0, 0, 0, 0.45) 102.55%
+    ),
+    linear-gradient(
+      238.28deg,
+      rgba(39, 54, 133, 0.65) 0%,
+      rgba(130, 130, 130, 0) 68.22%
+    ),
+    linear-gradient(
+      237.69deg,
+      rgba(45, 45, 45, 0) 30.63%,
+      rgba(188, 212, 242, 0.2) 125.87%
+    ),
+    linear-gradient(
+      120.81deg,
+      rgba(133, 133, 133, 0) 31.32%,
+      rgba(255, 215, 138, 0.2) 123.21%
+    );
+  --color: white;
+  --component-bg: rgba(25, 27, 31, 1);
+  --button-bg: rgba(33, 70, 118, 1);
+  --button-danger-bg: #7e0e0e;
+  --clickable-box-shadow: rgb(255 255 255 / 50%);
+  --clickable-border-color: rgb(255 255 255);
+  --clickable-border-color-less: rgba(255, 255, 255, 0.2);
+}
+
+.next-container {
+  background: var(--body-bg);
+  color: var(--color);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+input:focus-visible,
+input:focus-within {
+  outline: var(--clickable-border-color) 1px solid;
+}
+
+.clickable {
+  transition: 0.25s;
+  border: 1px solid transparent;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.clickable:hover {
+  box-shadow: 0px 10px 15px -14px var(--clickable-box-shadow);
+  border: 1px solid var(--clickable-border-color);
+}
+
+.button {
+  background: var(--button-bg);
+}
+
+.button-danger {
+  background: var(--button-danger-bg);
+}
+
+.component {
+  background: var(--component-bg);
+}
+
+@keyframes spin {
+  0% {
+    transform: rotateZ(0deg);
+  }
+  100% {
+    transform: rotateZ(360deg);
+  }
+}
+
+.spinner {
+  animation: spin 1s linear infinite;
+}
+
+.aneta-angel {
+  animation: pulse 2s cubic-bezier(0.34, 0.83, 0.78, 0.97) infinite;
+}
+
+@keyframes pulse {
+  0% {
+    filter: drop-shadow(0px 0px 0px rgb(255, 215, 0, 1));
+  }
+  100% {
+    filter: drop-shadow(0px 0px 30px rgb(255, 215, 0, 0));
+  }
+}
