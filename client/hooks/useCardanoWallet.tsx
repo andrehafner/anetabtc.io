@@ -2,16 +2,15 @@ import { RootState } from "@services/store";
 import { useDispatch, useSelector } from "react-redux";
 import {
   BlockfrostURL,
+  BLOCKFROST_MAINNET_KEY,
   CardanoWalletName,
-  cNetaPolicyID,
-  cNetaStakingContract,
-  cNetaTokenNameHex,
+  CNETA_POLICY_ID,
+  CNETA_STAKING_SCRIPT,
+  CNETA__TOKEN_NAME_HEX,
   StakingLength,
 } from "@entities/cardano";
 import { Blockfrost, Constr, Data, Lucid } from "lucid-cardano";
 import { setWallet } from "@reducers/cardano";
-
-const Buffer = require("buffer").Buffer;
 
 const useWallet = () => {
   const dispatch = useDispatch();
@@ -24,7 +23,7 @@ const useWallet = () => {
     const walletApi = await wallet.enable();
     const blockfrostAPI = new Blockfrost(
       BlockfrostURL.mainnet,
-      "mainnetGXsABkjQDCdtDNrPdRZJFeqaPH41BPSY"
+      BLOCKFROST_MAINNET_KEY
     );
     const lucid = await Lucid.new(blockfrostAPI, "Mainnet");
     const lucidClient = await lucid.selectWallet(walletApi);
@@ -51,7 +50,7 @@ const useWallet = () => {
       throw new Error("Wallet not connected");
     }
     const cNetaStakingScriptAddress =
-      await lucidClient.utils.validatorToAddress(cNetaStakingContract);
+      await lucidClient.utils.validatorToAddress(CNETA_STAKING_SCRIPT);
     const userAddress = await getWalletAddress();
     const { paymentCredential } =
       lucidClient.utils.getAddressDetails(userAddress);
@@ -66,7 +65,11 @@ const useWallet = () => {
     const cNetaAmount = BigInt(Number(stakingAmount));
     const stakingStartTime = Date.now().toString();
     let endTime = new Date();
-    endTime.setDate(endTime.getDate() + 30 * 6);
+    if (stakingLength === StakingLength.sixMonth) {
+      endTime.setDate(endTime.getDate() + 30 * 6);
+    } else {
+      endTime.setDate(endTime.getDate() + 30 * 12);
+    }
     const stakingEndTime = endTime.getTime().toString();
     const datumfields = [
       ownAddress,
@@ -78,11 +81,53 @@ const useWallet = () => {
 
     const tx = await lucidClient
       .newTx()
+      .validFrom(Date.now() - 100000)
+      .validTo(Date.now() + 100000)
       .payToContract(cNetaStakingScriptAddress, stakingDatum, {
         lovelace: BigInt(2000000),
-        [cNetaPolicyID + cNetaTokenNameHex]: cNetaAmount,
+        [CNETA_POLICY_ID + CNETA__TOKEN_NAME_HEX]: cNetaAmount,
       })
       .complete();
+    const signedTx = await tx.sign().complete();
+    const txHash = await signedTx.submit();
+    return txHash;
+  };
+
+  const unstake = async () => {
+    if (lucidClient == null) {
+      throw new Error("Wallet not connected");
+    }
+    const cNetaStakingScriptAddress =
+      await lucidClient.utils.validatorToAddress(CNETA_STAKING_SCRIPT);
+    const userAddress = await getWalletAddress();
+    const { paymentCredential } =
+      lucidClient.utils.getAddressDetails(userAddress);
+    if (paymentCredential == null) {
+      throw new Error("Cannot create payment credential");
+    }
+
+    const redeemer = Data.to(new Constr(0, []));
+    const utxo = (await lucidClient.utxosAt(cNetaStakingScriptAddress)).slice(
+      -1
+    )[0];
+
+    const utxotest = await lucidClient.utxosAt(cNetaStakingScriptAddress);
+
+    console.log(utxotest);
+
+    console.log(utxo);
+
+    const tx = await lucidClient
+      .newTx()
+      .validFrom(Date.now() - 100000)
+      .validTo(Date.now() + 100000)
+      .collectFrom([utxo], redeemer)
+      .attachSpendingValidator(CNETA_STAKING_SCRIPT)
+      .addSignerKey(paymentCredential.hash)
+      .complete();
+
+    console.log(tx);
+
     const signedTx = await tx.sign().complete();
     const txHash = await signedTx.submit();
     return txHash;
@@ -93,6 +138,7 @@ const useWallet = () => {
     getShortWalletAddress,
     enableWallet,
     stake,
+    unstake,
   };
 };
 

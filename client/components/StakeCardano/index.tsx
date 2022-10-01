@@ -22,7 +22,7 @@ export const CnetaStakingContext = createContext<IcnetaStakingContext>({
 
 const Stake = () => {
   const currency = Currency.cNETA;
-  const { stake } = useCardanoWallet();
+  const { stake, unstake } = useCardanoWallet();
   const { handleError } = useErrorHandler();
 
   const [stakingLength, setStakingLength] = useState<StakingLength>(
@@ -36,6 +36,7 @@ const Stake = () => {
   const submitStake = async () => {
     try {
       await stake(stakingAmount, stakingLength);
+      // await unstake()
       setStakingState(StakingState.success);
     } catch (e) {
       handleError(e);
