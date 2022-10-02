@@ -1,1 +1,1 @@
-# AnetaBTC Staking Platform
+# AnetaBTC voting portal
